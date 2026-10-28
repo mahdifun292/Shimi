@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>جزوه تعاملی شیمی — مخلوط‌ها و جداسازی مواد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#060a14;--bg2:#0a1020;--card:rgba(255,255,255,.045);--card2:rgba(255,255,255,.08);
+--border:rgba(255,255,255,.11);--text:#e8ecf4;--muted:#9aa7bd;
+--cyan:#22d3ee;--blue:#60a5fa;--purple:#a78bfa;--pink:#f472b6;--amber:#fbbf24;
+--green:#34d399;--rose:#fb7185;--indigo:#818cf8;--teal:#2dd4bf;--orange:#fb923c;--red:#f87171;
+--grad1:linear-gradient(135deg,#22d3ee,#3b82f6,#a78bfa);
+--grad2:linear-gradient(135deg,#f472b6,#a78bfa,#60a5fa);
+--radius:20px;--shadow:0 24px 60px rgba(0,0,0,.45);
+}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{font-family:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);
+line-height:2;overflow-x:hidden;
+background-image:
+radial-gradient(900px 520px at 85% -5%,rgba(59,130,246,.16),transparent 60%),
+radial-gradient(800px 500px at 8% 12%,rgba(167,139,250,.12),transparent 60%),
+radial-gradient(760px 620px at 50% 112%,rgba(34,211,238,.10),transparent 62%);
+background-attachment:fixed}
+::selection{background:rgba(34,211,238,.35);color:#fff}
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:#080d18}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#164e63,#3b82f6);border-radius:8px;border:2px solid #080d18}
+.container{max-width:1120px;margin:0 auto;padding:0 22px}
+b,strong{color:#fff}
+/* ---------- progress + nav ---------- */
+.progress{position:fixed;top:0;right:0;left:0;height:4px;z-index:1000;background:rgba(255,255,255,.05)}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#3b82f6,#a78bfa,#f472b6);box-shadow:0 0 12px rgba(59,130,246,.8);transition:width .12s linear}
+nav#topnav{position:fixed;top:4px;right:0;left:0;z-index:990;background:rgba(6,10,20,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;gap:18px;height:62px}
+.brand{font-weight:900;font-size:1.06rem;color:#fff;text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand .logo{width:34px;height:34px;border-radius:10px;background:var(--grad1);display:grid;place-items:center;font-size:1.05rem;box-shadow:0 6px 18px rgba(59,130,246,.45);animation:logoFloat 3.5s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
+.nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:6px 0;flex:1}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.83rem;font-weight:600;padding:7px 13px;border-radius:99px;white-space:nowrap;transition:.25s;border:1px solid transparent}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-links a.active{color:#06121f;background:linear-gradient(135deg,#22d3ee,#60a5fa);box-shadow:0 4px 16px rgba(34,211,238,.35)}
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:110px 18px 70px}
+#bgCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 42%,transparent 30%,rgba(6,10,20,.88) 100%);z-index:1;pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.35);color:#a5f3fc;padding:7px 18px;border-radius:99px;font-size:.9rem;font-weight:700;margin-bottom:26px;animation:fadeUp .9s .1s both;box-shadow:0 0 30px rgba(34,211,238,.15) inset}
+.hero h1{font-size:clamp(2rem,5.4vw,3.6rem);font-weight:900;line-height:1.55;animation:fadeUp .9s .25s both}
+.grad-text{background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6,#22d3ee);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradMove 6s linear infinite}
+@keyframes gradMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.hero p{color:var(--muted);font-size:clamp(.95rem,2vw,1.12rem);margin:18px auto 30px;max-width:640px;animation:fadeUp .9s .4s both}
+.hero-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:34px;animation:fadeUp .9s .55s both}
+.hstat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:10px 20px;backdrop-filter:blur(8px);transition:.3s}
+.hstat:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.45);box-shadow:0 10px 30px rgba(34,211,238,.15)}
+.hstat b{display:block;font-size:1.25rem;background:var(--grad1);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hstat span{font-size:.78rem;color:var(--muted)}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .9s .7s both}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 30px;border-radius:14px;font-weight:800;font-size:.98rem;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:.3s;position:relative;overflow:hidden}
+.btn-primary{background:linear-gradient(135deg,#22d3ee,#3b82f6);color:#04121f;box-shadow:0 12px 34px rgba(34,140,238,.4)}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 44px rgba(34,140,238,.55)}
+.btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);transform:translateX(160%);transition:transform .7s}
+.btn-primary:hover::after{transform:translateX(-160%)}
+.btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-3px)}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;color:var(--muted);font-size:1.6rem;animation:bounceDown 1.8s infinite}
+@keyframes bounceDown{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,10px);opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+/* ---------- sections ---------- */
+.section{padding:84px 0 30px;position:relative}
+.section-head{text-align:center;margin-bottom:46px}
+.kicker{display:inline-block;padding:6px 20px;border-radius:99px;font-size:.82rem;font-weight:800;letter-spacing:.4px;color:var(--c,#22d3ee);background:color-mix(in srgb,var(--c,#22d3ee) 12%,transparent);border:1px solid color-mix(in srgb,var(--c,#22d3ee) 40%,transparent);margin-bottom:14px}
+.section-head h2{font-size:clamp(1.5rem,3.6vw,2.3rem);font-weight:900;margin-bottom:12px}
+.section-head p{color:var(--muted);max-width:720px;margin:0 auto;font-size:.98rem}
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+/* ---------- cards & grids ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;backdrop-filter:blur(10px);transition:.35s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.22);box-shadow:var(--shadow)}
+.card .icon{font-size:1.9rem;margin-bottom:10px;display:inline-block;filter:drop-shadow(0 4px 14px rgba(255,255,255,.18))}
+.card h3{font-size:1.08rem;font-weight:800;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.92rem}
+.card.glow-cyan::before,.card.glow-purple::before,.card.glow-pink::before,.card.glow-amber::before,.card.glow-green::before,.card.glow-rose::before{content:"";position:absolute;top:-40%;right:-20%;width:60%;height:80%;border-radius:50%;filter:blur(60px);opacity:.16;pointer-events:none}
+.glow-cyan::before{background:#22d3ee}.glow-purple::before{background:#a78bfa}.glow-pink::before{background:#f472b6}.glow-amber::before{background:#fbbf24}.glow-green::before{background:#34d399}.glow-rose::before{background:#fb7185}
+.note{border-radius:16px;padding:16px 20px;font-size:.92rem;border:1px solid;display:flex;gap:12px;align-items:flex-start}
+.note.info{background:rgba(34,211,238,.07);border-color:rgba(34,211,238,.3)}
+.note.warn{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.3)}
+.note.success{background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.3)}
+.note .nicon{font-size:1.2rem;flex-shrink:0;margin-top:4px}
+.note b{color:#fff}
+.tag{display:inline-block;padding:3px 12px;border-radius:99px;font-size:.75rem;font-weight:700}
+ul.checks{list-style:none;margin-top:10px}
+ul.checks li{padding:9px 0 9px 0;display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:.93rem}
+ul.checks li::before{content:"✓";flex-shrink:0;width:24px;height:24px;border-radius:8px;background:rgba(52,211,153,.15);color:#34d399;display:grid;place-items:center;font-size:.8rem;font-weight:900;margin-top:6px}
+/* ---------- details / tamarin ---------- */
+details.tamarin{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.3);border-radius:16px;padding:18px 22px;margin-top:22px}
+details.tamarin summary{cursor:pointer;font-weight:800;color:#fcd34d;list-style:none;display:flex;align-items:center;gap:8px}
+details.tamarin summary::after{content:"＋";margin-right:auto;font-size:1.1rem;transition:.3s}
+details.tamarin[open] summary::after{transform:rotate(45deg)}
+details.tamarin .q{margin-top:14px;font-weight:700;font-size:.95rem}
+details.tamarin .a{margin-top:10px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3);border-radius:12px;padding:12px 16px;font-size:.9rem;color:#a7f3d0}
+/* ---------- footer / back to top ---------- */
+footer{margin-top:80px;padding:44px 0 90px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:.88rem}
+footer .fbrand{font-weight:900;color:#fff;font-size:1.05rem;margin-bottom:6px}
+#toTop{position:fixed;bottom:26px;left:26px;z-index:980;width:48px;height:48px;border-radius:14px;border:none;background:linear-gradient(135deg,#22d3ee,#3b82f6);color:#04121f;font-size:1.2rem;font-weight:900;cursor:pointer;opacity:0;pointer-events:none;transition:.35s;box-shadow:0 10px 30px rgba(34,140,238,.45)}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{transform:translateY(-4px)}
+</style>
+<style>
+/* ============ فصل ۱: درخته طبقه‌بندی ============ */
+.tree{display:flex;flex-direction:column;align-items:center;gap:0}
+.tnode{padding:11px 26px;border-radius:14px;border:1px solid var(--border);background:var(--card);font-weight:800;cursor:pointer;transition:.3s;text-align:center;position:relative}
+.tnode:hover,.tnode.sel{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.tnode.root{background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(167,139,250,.18));border-color:rgba(34,211,238,.4);font-size:1.05rem}
+.tnode.pure{border-color:rgba(52,211,153,.45);color:#a7f3d0}
+.tnode.mix{border-color:rgba(251,191,36,.45);color:#fde68a}
+.tnode.het{border-color:rgba(251,113,133,.45);color:#fecdd3}
+.tnode.hom{border-color:rgba(96,165,250,.45);color:#bfdbfe}
+.tnode .en{display:block;font-size:.72rem;font-weight:600;color:var(--muted)}
+.tbranch{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;padding-top:34px;margin-top:6px}
+.tbranch::before{content:"";position:absolute;top:6px;right:50%;width:2px;height:28px;background:linear-gradient(180deg,rgba(255,255,255,.3),transparent)}
+#treeInfo{margin-top:26px;min-height:92px;border-radius:16px;border:1px dashed rgba(255,255,255,.2);padding:18px 22px;font-size:.94rem;color:var(--muted);background:rgba(255,255,255,.03);transition:.3s}
+#treeInfo b{color:#fff}
+/* ============ فلش‌کارت تعاریف ============ */
+.flip{perspective:1200px;height:240px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px}
+.flip-f{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
+.flip-f .icon{font-size:2.6rem;margin-bottom:12px;animation:iconPulse 3s ease-in-out infinite}
+@keyframes iconPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.flip-f h3{font-size:1.25rem;font-weight:900}
+.flip-f span{color:var(--muted);font-size:.78rem;margin-top:8px}
+.flip-b{transform:rotateY(180deg);background:linear-gradient(160deg,rgba(34,211,238,.13),rgba(59,130,246,.08));font-size:.9rem;color:#dbeafe;line-height:1.9}
+.flip-b b{color:#7dd3fc}
+/* ============ تبدیل‌های سه‌گانه ============ */
+.conv{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0 6px}
+.conv .pill{padding:8px 18px;border-radius:12px;font-weight:800;font-size:.92rem;border:1px solid}
+.conv .pill.from{background:rgba(251,113,133,.12);border-color:rgba(251,113,133,.4);color:#fecdd3}
+.conv .pill.to{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.4);color:#a7f3d0}
+.conv .arrow{font-size:1.15rem;color:#fff;animation:arrowBeat 1.6s ease-in-out infinite;display:inline-block}
+@keyframes arrowBeat{0%,100%{transform:translateX(0);opacity:.7}50%{transform:translateX(-7px);opacity:1}}
+.conv .kind{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:800;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.4);color:#ddd6fe}
+/* ============ معادله محلول ============ */
+.eq{display:flex;align-items:stretch;justify-content:center;gap:14px;flex-wrap:wrap;margin:26px 0}
+.eq .box{min-width:150px;padding:18px 26px;border-radius:18px;text-align:center;border:1px solid;transition:.3s}
+.eq .box .t{font-weight:900;font-size:1.1rem}
+.eq .box .s{font-size:.76rem;color:var(--muted);margin-top:4px}
+.eq .box.solvent{background:rgba(96,165,250,.1);border-color:rgba(96,165,250,.45);animation:boxFloat 3.2s ease-in-out infinite}
+.eq .box.solute{background:rgba(244,114,182,.1);border-color:rgba(244,114,182,.45);animation:boxFloat 3.2s .5s ease-in-out infinite}
+.eq .box.solution{background:linear-gradient(135deg,rgba(34,211,238,.16),rgba(167,139,250,.16));border-color:rgba(34,211,238,.5);animation:boxFloat 3.2s 1s ease-in-out infinite}
+@keyframes boxFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.eq .op{display:grid;place-items:center;font-size:1.7rem;font-weight:900;color:#fff;animation:opSpin 4s linear infinite}
+@keyframes opSpin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.25)}100%{transform:rotate(360deg) scale(1)}}
+.role-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 18px;font-size:.92rem}
+.role-row .chipx{padding:5px 14px;border-radius:99px;font-weight:800;font-size:.8rem}
+.chipx.solvent{background:rgba(96,165,250,.18);color:#93c5fd;border:1px solid rgba(96,165,250,.4)}
+.chipx.solute{background:rgba(244,114,182,.18);color:#f9a8d4;border:1px solid rgba(244,114,182,.4)}
+/* ============ استوانه‌ها / نمودار میله‌ای ============ */
+.beakers{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:26px 0 10px}
+.beaker{width:104px;text-align:center}
+.beaker .glassv{height:120px;border:2px solid rgba(34,211,238,.5);border-top:none;border-radius:0 0 16px 16px;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(34,211,238,.05))}
+.beaker .fill{position:absolute;bottom:0;right:0;left:0;background:linear-gradient(180deg,rgba(34,211,238,.55),rgba(59,130,246,.65));border-top:2px dashed rgba(255,255,255,.5);height:0;transition:height 1.2s cubic-bezier(.2,.7,.3,1)}
+.beaker .gval{position:absolute;top:8px;right:0;left:0;font-size:.8rem;font-weight:800;color:#fff;z-index:2}
+.beaker .tc{margin-top:9px;font-weight:800;color:#67e8f9;font-size:.92rem}
+.beaker .glabel{font-size:.72rem;color:var(--muted)}
+.reveal.visible .beaker .fill{height:var(--h)}
+/* ============ نمودار تعاملی انحلال‌پذیری ============ */
+.chart-wrap{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;padding:22px;margin-top:24px;direction:ltr}
+.chart-wrap svg{width:100%;height:auto;display:block;cursor:crosshair}
+.slider-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:16px;direction:rtl}
+.slider-row label{font-weight:800;font-size:.9rem;white-space:nowrap}
+input[type=range]{flex:1;min-width:170px;accent-color:#22d3ee;height:6px;cursor:pointer}
+.temp-readout{background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.4);color:#67e8f9;font-weight:900;padding:6px 16px;border-radius:12px;min-width:120px;text-align:center}
+.chart-msg{margin-top:14px;border-radius:14px;padding:13px 18px;font-size:.92rem;font-weight:700;display:none;animation:fadeUp .45s both}
+.chart-msg.show{display:block}
+.chart-msg.unsat{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.4);color:#a7f3d0}
+.chart-msg.sat{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.4);color:#fde68a}
+.chart-msg.sup{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);color:#fecaca}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:.8rem;color:var(--muted);direction:rtl}
+.legend i{width:12px;height:12px;border-radius:4px;display:inline-block;margin-left:6px;vertical-align:-1px}
+/* ============ شیب‌ها ============ */
+.slope-svg path{stroke-dasharray:600;stroke-dashoffset:600}
+.reveal.visible .slope-svg path{animation:drawLine 2s .3s ease forwards}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+.regions-wrap{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;padding:22px;margin-top:24px;direction:ltr}
+.regions-wrap svg{width:100%;height:auto}
+.region-pt{cursor:pointer}
+.region-pt circle.dot{transition:.3s}
+.region-pt:hover circle.dot,.region-pt.on circle.dot{filter:drop-shadow(0 0 10px currentColor)}
+.region-pt text{font-weight:900}
+#regionInfo{margin-top:16px;border-radius:14px;padding:15px 20px;font-size:.93rem;direction:rtl;min-height:76px;transition:.3s;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+#regionInfo b{font-size:1rem}
+/* ============ مسائل ============ */
+.problem{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;margin-bottom:20px;transition:.3s}
+.problem:hover{border-color:rgba(251,191,36,.4)}
+.problem .pnum{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1f1500;font-weight:900;margin-left:10px;box-shadow:0 6px 16px rgba(251,191,36,.35)}
+.problem h3{display:inline;font-size:1.02rem;font-weight:800}
+.p-statement{margin:14px 0;background:rgba(251,191,36,.07);border:1px dashed rgba(251,191,36,.35);border-radius:14px;padding:14px 18px;font-size:.94rem;line-height:2}
+.p-table{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.p-table .cell{flex:1;min-width:110px;text-align:center;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;padding:9px 6px;font-size:.86rem}
+.p-table .cell b{display:block;font-size:1.05rem;color:#67e8f9}
+.p-table .cell.hl{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.45)}
+.p-table .cell.hl b{color:#6ee7b7}
+.steps{margin-top:6px}
+.step{opacity:0;max-height:0;overflow:hidden;transform:translateY(14px);transition:.6s cubic-bezier(.2,.7,.3,1)}
+.step.show{opacity:1;max-height:520px;transform:none}
+.step .sbody{background:rgba(255,255,255,.04);border:1px solid var(--border);border-right:3px solid #22d3ee;border-radius:12px;padding:12px 16px;margin-top:12px;font-size:.92rem}
+.step .snum{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:8px;background:rgba(34,211,238,.18);color:#67e8f9;font-size:.78rem;font-weight:900;margin-left:8px}
+.final-answer{margin-top:14px;background:linear-gradient(135deg,rgba(52,211,153,.16),rgba(34,211,238,.1));border:1px solid rgba(52,211,153,.5);border-radius:14px;padding:14px 18px;font-weight:900;color:#a7f3d0;font-size:1rem;display:none}
+.final-answer.show{display:block;animation:popIn .5s both}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+/* ============ شبیه‌سازی گاز ============ */
+.gas-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;margin-top:22px}
+.gas-visual{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:20px;padding:18px;display:flex;justify-content:center}
+.gas-visual svg{width:100%;max-width:330px;height:auto}
+.gas-ctl{display:flex;flex-direction:column;gap:20px}
+.gas-ctl .ctl label{display:flex;justify-content:space-between;font-weight:700;font-size:.88rem;margin-bottom:6px}
+.gas-count{background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.4);border-radius:14px;padding:12px 16px;text-align:center;font-weight:800;color:#99f6e4}
+/* ============ مقایسه ============ */
+.cmp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:26px 0}
+.cmp-col{border-radius:20px;border:1px solid var(--border);overflow:hidden;background:var(--card);transition:.3s}
+.cmp-col:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.cmp-head{padding:16px;text-align:center;font-weight:900;font-size:1.05rem}
+.cmp-col.sol .cmp-head{background:linear-gradient(135deg,rgba(34,211,238,.25),rgba(34,211,238,.08));color:#a5f3fc}
+.cmp-col.col .cmp-head{background:linear-gradient(135deg,rgba(167,139,250,.25),rgba(167,139,250,.08));color:#ddd6fe}
+.cmp-col.sus .cmp-head{background:linear-gradient(135deg,rgba(251,113,133,.25),rgba(251,113,133,.08));color:#fecdd3}
+.cmp-demo{height:150px;position:relative;background:rgba(0,0,0,.25);border-bottom:1px solid var(--border);overflow:hidden}
+.cmp-demo .liq{position:absolute;bottom:0;right:0;left:0;height:70%;background:linear-gradient(180deg,rgba(96,165,250,.14),rgba(96,165,250,.28))}
+.cmp-demo .pt{position:absolute;border-radius:50%}
+.cmp-col.sol .pt{width:4px;height:4px;background:#22d3ee;animation:solMove 4s linear infinite}
+.cmp-col.col .pt{width:9px;height:9px;background:#a78bfa;animation:colFloat 5s ease-in-out infinite}
+.cmp-col.sus .pt{width:16px;height:16px;background:#fb7185;animation:susSettle 6s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes solMove{0%{transform:translate(0,0)}25%{transform:translate(22px,-14px)}50%{transform:translate(44px,4px)}75%{transform:translate(66px,-12px)}100%{transform:translate(88px,0)}}
+@keyframes colFloat{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-18px)}66%{transform:translate(-16px,12px)}}
+@keyframes susSettle{0%{transform:translateY(0);opacity:1}70%{transform:translateY(52px);opacity:.9}100%{transform:translateY(52px);opacity:0}}
+.cmp-body{padding:14px 16px;font-size:.83rem;color:var(--muted);line-height:2}
+.cmp-body b{color:#fff;font-size:.9rem}
+.cmp-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;font-size:.88rem;margin-top:10px}
+.cmp-table th{background:rgba(255,255,255,.07);padding:12px 14px;font-weight:800;font-size:.86rem}
+.cmp-table td{padding:11px 14px;border-top:1px solid var(--border);color:var(--muted)}
+.cmp-table tr:hover td{background:rgba(255,255,255,.035)}
+.cmp-table td:first-child{font-weight:800;color:#fff;white-space:nowrap}
+.cmp-table .ok{color:#6ee7b7;font-weight:700}
+.cmp-table .no{color:#fca5a5;font-weight:700}
+.cmp-table .mid{color:#fcd34d;font-weight:700}
+/* ============ تکنیک‌های جداسازی ============ */
+.tech-visual{height:170px;border-radius:16px;background:rgba(0,0,0,.28);border:1px solid var(--border);margin-bottom:16px;position:relative;overflow:hidden;direction:ltr}
+.tech-head{display:flex;align-items:center;gap:10px;cursor:pointer}
+.tech-head h3{font-size:1.02rem;font-weight:800;flex:1}
+.tech-head .chev{transition:.35s;color:var(--muted)}
+.tech.open .tech-head .chev{transform:rotate(180deg)}
+.tech-body{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.2,.7,.3,1)}
+.tech.open .tech-body{max-height:640px}
+.tech-body .inner{padding-top:14px;font-size:.92rem;color:var(--muted)}
+.tech-body .inner b{color:#fff}
+.ex-badge{display:inline-block;background:rgba(52,211,153,.13);border:1px solid rgba(52,211,153,.35);color:#a7f3d0;border-radius:99px;padding:3px 13px;font-size:.76rem;font-weight:700;margin-top:8px}
+/* bubble / steam animations */
+.bubble{position:absolute;bottom:6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.85),rgba(165,243,252,.25));animation:rise 2.6s ease-in infinite;opacity:0}
+@keyframes rise{0%{transform:translateY(0) scale(.7);opacity:0}25%{opacity:.9}100%{transform:translateY(-120px) scale(1.25);opacity:0}}
+.steam{position:absolute;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.28);filter:blur(5px);animation:steamUp 3s ease-out infinite;opacity:0}
+@keyframes steamUp{0%{transform:translateY(0) scale(.6);opacity:0}30%{opacity:.75}100%{transform:translateY(-95px) scale(1.9);opacity:0}}
+.chroma-band{position:absolute;width:9px;height:9px;border-radius:50%;animation:chromaUp 5s ease-in-out infinite;opacity:0}
+@keyframes chromaUp{0%{transform:translateY(0) scale(1);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(-125px) scale(2.6);opacity:.15}}
+.cool-flow{stroke-dasharray:7 9;animation:flowDash 1.1s linear infinite}
+@keyframes flowDash{to{stroke-dashoffset:-32}}
+.vapor-flow{stroke-dasharray:5 11;animation:flowDash2 1.5s linear infinite}
+@keyframes flowDash2{to{stroke-dashoffset:-48}}
+.flame{transform-origin:center 80%;animation:flick .45s ease-in-out infinite alternate}
+@keyframes flick{from{transform:scaleY(1) scaleX(1)}to{transform:scaleY(1.22) scaleX(.92)}}
+.spin-wrap{transform-origin:center;animation:spinRot 2.4s linear infinite}
+@keyframes spinRot{to{transform:rotate(360deg)}}
+.drop-out{animation:dropFall 1.4s ease-in infinite}
+@keyframes dropFall{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(58px);opacity:0}}
+.pour-stream{stroke-dasharray:4 8;animation:flowDash 1s linear infinite}
+.filter-block{animation:blockJig 1.2s ease-in-out infinite}
+@keyframes blockJig{0%,100%{transform:translate(0,0)}50%{transform:translate(-4px,3px)}}
+.precip-dot{animation:precipDrop 2.8s ease-in infinite;opacity:0}
+@keyframes precipDrop{0%{transform:translateY(-26px);opacity:0}30%{opacity:1}75%{transform:translateY(0);opacity:1}100%{opacity:1}}
+/* ============ امتحان ============ */
+.quiz-sec{padding-bottom:60px}
+.quiz-box{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:26px;padding:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.quiz-box::before{content:"";position:absolute;top:-30%;left:-10%;width:40%;height:60%;background:radial-gradient(circle,rgba(167,139,250,.2),transparent 70%);filter:blur(50px);pointer-events:none}
+.qstart{text-align:center}
+.qstart .big{font-size:3.2rem;animation:iconPulse 2.6s ease-in-out infinite;display:inline-block}
+.qstart h3{font-size:1.5rem;font-weight:900;margin:12px 0}
+.qrules{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:22px 0 28px}
+.qrule{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 20px;font-size:.86rem;color:var(--muted)}
+.qrule b{color:#67e8f9}
+.quiz-top{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.qprog{flex:1;min-width:140px;height:9px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.qprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#a78bfa);border-radius:99px;transition:width .4s cubic-bezier(.2,.7,.3,1);box-shadow:0 0 10px rgba(34,211,238,.6)}
+#qCount{font-weight:800;font-size:.9rem;white-space:nowrap}
+#qTimer{font-variant-numeric:tabular-nums;background:rgba(255,255,255,.06);border:1px solid var(--border);padding:5px 14px;border-radius:99px;font-weight:800;font-size:.85rem;white-space:nowrap}
+.qtopic{display:inline-block;font-size:.76rem;font-weight:800;padding:4px 14px;border-radius:99px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.4);color:#ddd6fe;margin-bottom:12px}
+.qtext{font-size:1.12rem;font-weight:800;line-height:2;margin-bottom:20px}
+.qopts{display:grid;gap:11px}
+.qopt{display:flex;align-items:center;gap:12px;text-align:right;width:100%;background:rgba(255,255,255,.045);border:1.5px solid var(--border);border-radius:14px;padding:13px 18px;color:var(--text);font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:.25s}
+.qopt .letter{flex-shrink:0;width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-items:center;font-weight:900;font-size:.85rem;transition:.25s}
+.qopt:hover:not(:disabled){transform:translateX(-5px);border-color:rgba(34,211,238,.55);background:rgba(34,211,238,.08)}
+.qopt.correct{background:rgba(52,211,153,.16)!important;border-color:#34d399!important;color:#a7f3d0}
+.qopt.correct .letter{background:#34d399;color:#052e1c}
+.qopt.wrong{background:rgba(248,113,113,.14)!important;border-color:#f87171!important;color:#fecaca}
+.qopt.wrong .letter{background:#f87171;color:#2b0606}
+.qopt:disabled{cursor:default;opacity:.92}
+.qexplain{margin-top:18px;border-radius:14px;padding:14px 18px;font-size:.9rem;background:rgba(96,165,250,.09);border:1px solid rgba(96,165,250,.35);color:#bfdbfe;animation:fadeUp .45s both}
+.qnav{margin-top:20px;display:flex;justify-content:flex-end}
+.hidden{display:none!important}
+.qend{text-align:center;animation:fadeUp .6s both}
+.score-circle{width:170px;height:170px;border-radius:50%;margin:10px auto 18px;display:grid;place-items:center;position:relative;background:conic-gradient(#34d399 calc(var(--p)*1%),rgba(255,255,255,.08) 0);transition:--p 1s}
+.score-circle::before{content:"";position:absolute;inset:11px;border-radius:50%;background:#0a1020}
+.score-circle .sc-in{position:relative;z-index:2;text-align:center}
+.score-circle .sc-num{font-size:2.1rem;font-weight:900}
+.score-circle .sc-lab{font-size:.75rem;color:var(--muted)}
+.grade-msg{font-size:1.15rem;font-weight:900;margin-bottom:6px}
+.qend-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0 24px}
+.qend-stats .qs{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px 22px}
+.qend-stats .qs b{display:block;font-size:1.2rem}
+.qend-stats .qs span{font-size:.75rem;color:var(--muted)}
+.review-list{text-align:right;max-height:340px;overflow-y:auto;border:1px solid var(--border);border-radius:16px;padding:8px 16px;margin-bottom:24px}
+.review-item{padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.88rem}
+.review-item:last-child{border:none}
+.review-item .rv-q{font-weight:800;color:#e2e8f0;margin-bottom:5px}
+.review-item .rv-w{color:#fca5a5;font-size:.82rem}
+.review-item .rv-c{color:#6ee7b7;font-size:.82rem}
+.review-item .rv-e{color:var(--muted);font-size:.8rem;margin-top:5px}
+/* ---------- responsive ---------- */
+@media(max-width:900px){.grid3{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.gas-wrap{grid-template-columns:1fr}.cmp-grid{grid-template-columns:1fr}.quiz-box{padding:22px}}
+@media(max-width:620px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.hero h1{line-height:1.7}.nav-in{height:56px}.section{padding:64px 0 24px}.flip{height:250px}}
+</style>
+</head>
+<body id="top">
+<div class="progress"><i id="progressBar"></i></div>
+<nav id="topnav"><div class="container nav-in">
+<a class="brand" href="#top"><span class="logo">⚗️</span>جزوه تعاملی شیمی</a>
+<div class="nav-links" id="navLinks">
+<a href="#mixtures">🧩 مخلوط‌ها</a><a href="#solution">💧 محلول‌ها</a><a href="#solubility">📈 انحلال‌پذیری</a><a href="#temperature">🌡️ دما</a><a href="#problems">✏️ مسائل</a><a href="#gases">🫧 گازها</a><a href="#compare">⚖️ مقایسه</a><a href="#separation">🔬 جداسازی</a><a href="#quiz">📝 امتحان</a>
+</div>
+</div></nav>
+<header class="hero">
+<canvas id="bgCanvas"></canvas>
+<div class="hero-inner">
+<div class="hero-badge">🧪 بر اساس جزوه دست‌نویس شیمی — مخلوط‌ها و جداسازی مواد</div>
+<h1>جزوه <span class="grad-text">تعاملی</span> شیمی<br>مخلوط‌ها، محلول‌ها و <span class="grad-text">تکنیک‌های جداسازی</span></h1>
+<p>همه مفاهیم جزوه به‌صورت تصویری و تعاملی: نمودار انحلال‌پذیری زنده، شبیه‌سازی گازها، انیمیشن تکنیک‌های جداسازی، مسائل حل‌گام‌به‌گام و امتحان پایانی ۵۰ سؤالی</p>
+<div class="hero-stats">
+<div class="hstat"><b>۸</b><span>فصل آموزشی</span></div>
+<div class="hstat"><b>۱۵+</b><span>تعامل و انیمیشن</span></div>
+<div class="hstat"><b>۴</b><span>مسئله حل‌شده</span></div>
+<div class="hstat"><b>۵۰</b><span>سؤال امتحان</span></div>
+</div>
+<div class="hero-btns">
+<a href="#mixtures" class="btn btn-primary">🚀 شروع یادگیری</a>
+<a href="#quiz" class="btn btn-ghost">📝 رفتن به امتحان</a>
+</div>
+</div>
+<div class="scroll-hint">▾</div>
+</header>
+<!-- ================= فصل ۱: مخلوط‌ها ================= -->
+<section id="mixtures" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#22d3ee">فصل ۱</span>
+<h2>آشنایی با <span class="grad-text">مخلوط‌ها</span></h2>
+<p>تمام موادی که در اطراف ما هستند، یا <b>خالص</b>‌اند یا <b>مخلوط</b>. مخلوط‌ها نیز به دو گروه <b>ناهمگن</b> و <b>همگن</b> تقسیم می‌شوند. روی گره‌های درخت زیر کلیک کنید تا تعریف هر دسته را ببینید!</p>
+</div>
+
+<div class="tree reveal">
+<div class="tnode root" data-t="ماده‌های اطراف ما همه به دو دسته بزرگ تقسیم می‌شوند: <b>ماده خالص</b> که فقط از یک نوع عنصر یا یک نوع ترکیب ساخته شده است، و <b>مخلوط</b> که از دو یا چند ماده ساخته شده و اجزای آن با روش‌های فیزیکی قابل جدا شدن هستند.">🧱 ماده‌ها</div>
+<div class="tbranch">
+<div class="tnode pure" data-t="<b>ماده خالص</b> ماده‌ای است که فقط از <b>یک نوع عنصر</b> یا <b>یک نوع ترکیب</b> ساخته شده باشد. در این صورت به آن ماده، خالص می‌گوییم؛ چون هیچ ماده اضافه‌ای در آن حضور ندارد.">✨ ماده خالص</div>
+<div class="tnode mix" data-t="<b>مخلوط</b> از دو یا چند ماده ساخته شده است. اگر اجزای مخلوط در سراسر آن یکنواخت پخش شده باشند، مخلوط <b>همگن</b> و اگر پخش نباشند و بتوان اجزا را از هم تشخیص داد، مخلوط <b>ناهمگن</b> است.">🧺 مخلوط</div>
+</div>
+<div class="tbranch">
+<div class="tnode hom" data-t="<b>مخلوط همگن</b> در سراسر حجم خود یکنواخت است و اجزای آن با چشم قابل تشخیص نیستند؛ مثل <b>محلول آب و نمک</b>. مخلوط‌های همگن معمولاً پایدارند و ذراتشان ته‌نشین نمی‌شود.">💧 همگن</div>
+<div class="tnode het" data-t="<b>مخلوط ناهمگن</b> اجزای آن با چشم (یا با ذره‌بین) قابل تشخیص هستند و ذرات معلق آن به‌مرور ته‌نشین می‌شوند؛ مثل <b>آب و خاک</b> (سوسپانسیون) یا <b>آب و روغن</b>. دو مخلوط ناهمگن مهم در جزوه: <b>سوسپانسیون</b> و <b>کلوئید</b>.">🌊 ناهمگن</div>
+</div>
+</div>
+<div id="treeInfo">👆 روی هر گره کلیک کنید تا توضیح آن اینجا نمایش داده شود…</div>
+
+<div class="grid3" style="margin-top:34px">
+<div class="flip reveal d1">
+<div class="flip-in">
+<div class="flip-f"><span class="icon">🥛</span><h3>کلوئید</h3><span>برای دیدن تعریف کلیک کنید</span></div>
+<div class="flip-b"><span><b>کلوئید</b> سوسپانسیونی است که ذرات آن به‌صورت <b>شناور</b> در مایع باقی می‌مانند و ته‌نشین نمی‌شوند. ذرات کلوئید از ذرات محلول بزرگ‌تر و از ذرات سوسپانسیون کوچک‌ترند. <br>مثال: شیر، مه، ژله</span></div>
+</div>
+</div>
+<div class="flip reveal d2">
+<div class="flip-in">
+<div class="flip-f"><span class="icon">🏝️</span><h3>سوسپانسیون</h3><span>برای دیدن تعریف کلیک کنید</span></div>
+<div class="flip-b"><span><b>سوسپانسیون</b> مخلوطی ناهمگن است که ذرات جامد آن به‌مرور زمان <b>ته‌نشین می‌شوند</b> و در کف ظرف جمع می‌شوند. این مخلوط پایدار نیست و پیش از مصرف باید هم زده شود. <br>مثال: آب و خاک (گِل‌آلود)</span></div>
+</div>
+</div>
+<div class="flip reveal d3">
+<div class="flip-in">
+<div class="flip-f"><span class="icon">🧂</span><h3>محلول</h3><span>برای دیدن تعریف کلیک کنید</span></div>
+<div class="flip-b"><span><b>محلول</b> مخلوطی همگن از <b>حلال</b> و <b>حل‌شونده</b> است. ذرات آن بسیار ریز (کوچک‌تر از ۱ نانومتر) هستند، پایدار است و نور به‌راحتی از آن عبور می‌کند. <br>مثال: آب نمک، آب شکر</span></div>
+</div>
+</div>
+</div>
+
+<div class="grid3" style="margin-top:22px">
+<div class="card glow-rose reveal d1">
+<h3>🔁 تبدیل ۱ — جداسازی مخلوط ناهمگن</h3>
+<div class="conv"><span class="pill from">مخلوط ناهمگن</span><span class="arrow">←</span><span class="kind">تغییر فیزیکی</span></div>
+<p>اجزای مخلوط‌های ناهمگن را با روش‌های فیزیکی (صاف کردن، سرریز کردن و…) از هم جدا می‌کنیم. مثل جدا کردن ناخالصی از شیره.</p>
+</div>
+<div class="card glow-amber reveal d2">
+<h3>🔁 تبدیل ۲ — خالص‌سازی ماده</h3>
+<div class="conv"><span class="pill from">ماده ناخالص</span><span class="arrow">←</span><span class="kind">تغییر فیزیکی</span><span class="pill to">ماده خالص</span></div>
+<p>ماده ناخالص را با تغییر فیزیکی به ماده خالص تبدیل می‌کنیم؛ مثل جدا کردن آب و روغن از یکدیگر بدون تغییر ماهیت شیمیایی آن‌ها.</p>
+</div>
+<div class="card glow-purple reveal d3">
+<h3>🔁 تبدیل ۳ — تجزیه ترکیب</h3>
+<div class="conv"><span class="pill from">ترکیب</span><span class="arrow">←</span><span class="kind">تغییر شیمیایی</span><span class="pill to">عنصر</span></div>
+<p>برای جدا کردن عنصرهای سازنده یک ترکیب، به تغییر شیمیایی نیاز داریم؛ مثل تجزیه آب به هیدروژن و اکسیژن (هیدروژن + دی‌اکسیژن).</p>
+</div>
+</div>
+
+<details class="tamarin reveal">
+<summary>⚡ تمرین سریع فصل ۱</summary>
+<p class="q">❓ مخلوط آب و خاک پس از چند دقیقه آرام ایستادن، کف ظرف رسوب می‌گیرد. این مخلوط کدام است و چه نوع تغییری آن را جدا می‌کند؟</p>
+<p class="a">✅ چون ذرات جامد ته‌نشین می‌شوند، مخلوط <b>سوسپانسیون</b> (ناهمگن) است و جداسازی آن با <b>تغییر فیزیکی</b> (صاف کردن یا سرریز کردن) انجام می‌شود — نه تغییر شیمیایی.</p>
+</details>
+</div>
+</section>
+
+<!-- ================= فصل ۲: محلول‌ها ================= -->
+<section id="solution" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#60a5fa">فصل ۲</span>
+<h2>اجزای سازنده <span class="grad-text">محلول‌ها</span></h2>
+<p>اجزای سازنده محلول‌ها را می‌توان به دو قسمت تقسیم کرد: <b>حلال</b> و <b>حل‌شونده</b>. اما کدام‌یک کدام است؟</p>
+</div>
+
+<div class="eq reveal">
+<div class="box solvent"><div class="t">حلال</div><div class="s">Solvent</div></div>
+<div class="op">＋</div>
+<div class="box solute"><div class="t">حل‌شونده</div><div class="s">Solute</div></div>
+<div class="op">＝</div>
+<div class="box solution"><div class="t">محلول</div><div class="s">Solution</div></div>
+</div>
+
+<div class="grid2">
+<div class="card glow-cyan reveal d1">
+<h3>🔑 نکته کلیدی جزوه</h3>
+<p><b>حلال فقط یک جزء است</b>، ولی <b>حل‌شونده می‌تواند بیش از یک جزء باشد!</b> مثلاً در یک نوشیدنی، آب حلال است اما شکر، رنگ و اسید همگی با هم حل‌شونده هستند.</p>
+<ul class="checks">
+<li>حلال: جزئی که معمولاً مقدارش بیشتر است و بقیه در آن حل می‌شوند</li>
+<li>حل‌شونده: ماده‌ای (یا ماده‌هایی) که در حلال پخش می‌شود</li>
+<li>مهم‌ترین حلال‌ها طبق جزوه: <b>آب، استون، اتانول و تینر</b></li>
+</ul>
+</div>
+<div class="card glow-pink reveal d2">
+<h3>🧪 مثال‌های جزوه</h3>
+<div class="role-row" style="margin-bottom:12px"><span>آب + نمک</span><span style="margin-right:auto"></span><span class="chipx solvent">آب = حلال</span><span class="chipx solute">نمک = حل‌شونده</span></div>
+<div class="role-row"><span>آب + الکل</span><span style="margin-right:auto"></span><span class="chipx solvent">آب = حلال</span><span class="chipx solute">الکل = حل‌شونده</span></div>
+<p style="margin-top:14px">همان‌طور که می‌بینید در هر دو مثال، <b>آب</b> نقش حلال را دارد؛ چون فراوان‌ترین و بهترین حلال دنیاست.</p>
+</div>
+</div>
+
+<div class="grid4" style="margin-top:22px">
+<div class="card reveal d1" style="text-align:center"><span class="icon">💧</span><h3>آب</h3><p>حلال جهانی؛ ارزان و فراوان</p></div>
+<div class="card reveal d2" style="text-align:center"><span class="icon">🧴</span><h3>استون</h3><p>حلال لاک و چربی‌ها</p></div>
+<div class="card reveal d3" style="text-align:center"><span class="icon">🍶</span><h3>اتانول</h3><p>الکل؛ حلال دارو و عطر</p></div>
+<div class="card reveal d4" style="text-align:center"><span class="icon">🖌️</span><h3>تینر</h3><p>حلال رنگ و رقیق‌کننده</p></div>
+</div>
+
+<div class="grid2" style="margin-top:22px">
+<div class="card glow-green reveal">
+<h3>🌟 چرا آب بهترین حلال است؟ (ویژگی‌های آب)</h3>
+<ul class="checks">
+<li><b>ارزان و فراوان</b> است و به‌راحتی در دسترس است</li>
+<li><b>بیشترین واکنش‌های آزمایشگاهی و صنعتی</b> در آب انجام می‌شود</li>
+<li><b>بیشترین فرایندهای دارویی و زیستی</b> نیز در محیط آبی صورت می‌گیرد</li>
+<li><b>اغلب ترکیب‌های یونی و مولکولی</b> در آب حل می‌شوند</li>
+</ul>
+</div>
+<div class="card glow-purple reveal d1">
+<h3>🧬 حلال‌های زیستی</h3>
+<p>در موجودات زنده نیز <b>آب</b> حلال اصلی است؛ خون، شیره گیاهی و مایعات بدن همگی محلول‌های آبی هستند و مواد غذایی و دارویی پس از حل شدن در آب به سلول‌ها می‌رسند.</p>
+<div class="note info" style="margin-top:14px"><span class="nicon">💡</span><span><b>مفهوم سیرشدن (آشنایی):</b> وقتی می‌گوییم یک محلول «سیرشده» است یعنی در آن دما، حداکثر مقدار حل‌شونده ممکن در آن حل شده است. مثال جزوه: <b>۱۰۰g حلال + ۳۲g حل‌شونده = ۱۳۲g محلول سیرشده</b></span></div>
+</div>
+</div>
+
+<details class="tamarin reveal">
+<summary>⚡ تمرین سریع فصل ۲</summary>
+<p class="q">❓ در یک لیوان چای شیرین، حلال و حل‌شونده کدام‌اند؟ اگر به همان چای چند حبه قند و یک قطره آبلیمو اضافه کنیم چه می‌شود؟</p>
+<p class="a">✅ چای (آب) <b>حلال</b> و شکر <b>حل‌شونده</b> است. با افزودن قند و آبلیمو، حالا <b>دو جزء حل‌شونده</b> داریم — یادتان باشد حلال فقط یکی است ولی حل‌شونده می‌تواند چند جزء باشد!</p>
+</details>
+</div>
+</section>
+<!-- ================= فصل ۳: انحلال‌پذیری ================= -->
+<section id="solubility" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#a78bfa">فصل ۳</span>
+<h2>انحلال‌پذیری و <span class="grad-text">نمودار آن</span></h2>
+<p>انحلال‌پذیری یعنی حداکثر مقدار حل‌شونده‌ای که در یک دمای مشخص می‌تواند در حلال حل شود تا محلول سیرشده به دست آید. طبق جزوه، هنگام بیان انحلال‌پذیری همیشه حلال را <b>۱۰۰ گرم</b> در نظر می‌گیریم.</p>
+</div>
+
+<div class="grid2">
+<div class="card glow-purple reveal d1">
+<h3>📏 قاعده طلایی جزوه</h3>
+<p>هر وقت صحبت از انحلال‌پذیری است، پایه محاسبه همیشه <b>۱۰۰ گرم حلال</b> است:</p>
+<div style="text-align:center;margin:16px 0;padding:16px;border-radius:14px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.35)">
+<span style="font-size:1.15rem;font-weight:900">انحلال‌پذیری = حداکثر جرم حل‌شونده (گرم) در <span style="color:#c4b5fd">۱۰۰ گرم حلال</span>، در دمای معین</span>
+</div>
+<p>مثال: «انحلال‌پذیری نمک A در ۴۰ درجه برابر ۵۰ است» یعنی در دمای ۴۰ درجه، حداکثر <b>۵۰ گرم</b> از نمک A در <b>۱۰۰ گرم آب</b> حل می‌شود و محلول حاصل <b>سیرشده</b> است (۱۵۰ گرم محلول).</p>
+</div>
+<div class="card glow-cyan reveal d2">
+<h3>📊 آزمایش جزوه — انحلال در دماهای مختلف</h3>
+<p>در جزوه، به پنج لیوان ۱۰۰ گرمی آب، در دماهای ۱۰ تا ۵۰ درجه، نمک A اضافه شده است. مقدار حل‌شونده در هر دما:</p>
+</div>
+</div>
+
+<div class="beakers reveal">
+<div class="beaker"><div class="glassv"><span class="gval">۲۰g</span><div class="fill" style="--h:20%"></div></div><div class="tc">۱۰°C</div><div class="glabel">۱۰۰g آب</div></div>
+<div class="beaker"><div class="glassv"><span class="gval">۳۰g</span><div class="fill" style="--h:30%"></div></div><div class="tc">۲۰°C</div><div class="glabel">۱۰۰g آب</div></div>
+<div class="beaker"><div class="glassv"><span class="gval">۴۰g</span><div class="fill" style="--h:40%"></div></div><div class="tc">۳۰°C</div><div class="glabel">۱۰۰g آب</div></div>
+<div class="beaker"><div class="glassv"><span class="gval">۵۰g</span><div class="fill" style="--h:50%"></div></div><div class="tc">۴۰°C</div><div class="glabel">۱۰۰g آب</div></div>
+<div class="beaker"><div class="glassv"><span class="gval">۶۰g</span><div class="fill" style="--h:60%"></div></div><div class="tc">۵۰°C</div><div class="glabel">۱۰۰g آب</div></div>
+</div>
+<p class="reveal" style="text-align:center;color:var(--muted);font-size:.85rem">با بالا رفتن دما، مقدار بیشتری نمک A حل می‌شود → این داده‌ها نمودار انحلال‌پذیری را می‌سازند ⬇️</p>
+
+<div class="chart-wrap reveal">
+<svg id="solChart" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="#22d3ee"/><stop offset="50%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#a78bfa"/>
+</linearGradient>
+</defs>
+<!-- grid -->
+<g stroke="rgba(255,255,255,.07)" stroke-width="1">
+<line x1="70" y1="60" x2="70" y2="360"/><line x1="70" y1="360" x2="610" y2="360"/>
+<line x1="70" y1="310" x2="610" y2="310" stroke-dasharray="4 6"/><line x1="70" y1="260" x2="610" y2="260" stroke-dasharray="4 6"/>
+<line x1="70" y1="210" x2="610" y2="210" stroke-dasharray="4 6"/><line x1="70" y1="160" x2="610" y2="160" stroke-dasharray="4 6"/>
+<line x1="70" y1="110" x2="610" y2="110" stroke-dasharray="4 6"/>
+</g>
+<g font-size="13" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">
+<text x="40" y="315">20</text><text x="40" y="265">30</text><text x="40" y="215">40</text><text x="40" y="165">50</text><text x="40" y="115">60</text>
+<text x="92" y="382">10</text><text x="167" y="382">20</text><text x="242" y="382">30</text><text x="317" y="382">40</text><text x="392" y="382">50</text>
+<text x="330" y="412" text-anchor="middle">دما (°C)</text>
+<text x="18" y="210" transform="rotate(-90 18 210)" text-anchor="middle">انحلال‌پذیری (g)</text>
+</g>
+<!-- curve: temp 10..50 -> x=100+15*(t-10) ; sol 20..60 -> y=360-5*(s-20) -->
+<path d="M100,260 L400,110" stroke="url(#curveGrad)" stroke-width="5" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 8px rgba(59,130,246,.6))"/>
+<!-- data points -->
+<g fill="#22d3ee" stroke="#04121f" stroke-width="2">
+<circle cx="100" cy="260" r="6"/><circle cx="175" cy="225" r="6"/><circle cx="250" cy="190" r="6"/><circle cx="325" cy="155" r="6"/><circle cx="400" cy="110" r="7" fill="#a78bfa"/>
+</g>
+<line id="guideV" x1="325" y1="360" x2="325" y2="155" stroke="rgba(34,211,238,.45)" stroke-dasharray="5 5" stroke-width="2"/>
+<line id="guideH" x1="70" y1="155" x2="325" y2="155" stroke="rgba(167,139,250,.45)" stroke-dasharray="5 5" stroke-width="2"/>
+<circle id="movingDot" cx="325" cy="155" r="11" fill="#fbbf24" stroke="#fff" stroke-width="3" style="filter:drop-shadow(0 0 12px rgba(251,191,36,.9))"/>
+</svg>
+<div class="slider-row">
+<label>🎚️ دما:</label>
+<input type="range" id="tempSlider" min="10" max="50" value="40" step="1">
+<div class="temp-readout" id="tempReadout">۴۰°C → ۵۰ گرم</div>
+</div>
+<p style="color:var(--muted);font-size:.85rem;margin-top:10px" class="reveal">در این نمودار، <b style="color:#67e8f9">نقطه زرد</b> با تغییر دما روی منحنی حرکت می‌کند و همیشه نشان می‌دهد «در این دما حداکثر چند گرم حل می‌شود». روی نمودار هم می‌توانید کلیک کنید!</p>
+<div class="chart-msg" id="chartMsg"></div>
+<div class="legend">
+<span><i style="background:#34d399"></i>زیر منحنی = سیرنشده</span>
+<span><i style="background:#fbbf24"></i>روی منحنی = سیرشده</span>
+<span><i style="background:#f87171"></i>بالای منحنی = فراسیرشده</span>
+</div>
+</div>
+
+<div class="grid2" style="margin-top:22px">
+<div class="card glow-cyan reveal d1">
+<h3>🎯 کاربردهای نمودار انحلال‌پذیری (طبق جزوه)</h3>
+<ul class="checks">
+<li>می‌فهمیم انحلال‌پذیری هر ماده <b>چگونه با دما تغییر می‌کند</b> (افزایشی یا کاهشی)</li>
+<li>می‌توانیم <b>مقدار انحلال‌پذیری در دماهای مختلف</b> را از روی نمودار پیدا کنیم</li>
+<li>وضعیت هر محلول (<b>سیرشده، سیرنشده، فراسیرشده</b>) را تشخیص می‌دهیم</li>
+</ul>
+</div>
+<div class="card glow-amber reveal d2">
+<h3>🧠 نکته مهم</h3>
+<p>نمودار انحلال‌پذیری برای <b>هر ماده یک منحنی مجزا</b> دارد. دو ماده مختلف می‌توانند منحنی‌های کاملاً متفاوت داشته باشند؛ یکی با دما زیاد شود و دیگری کم. به همین دلیل مقایسه مواد باید در <b>بازه دمایی یکسان</b> انجام شود.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ================= فصل ۴: اثر دما ================= -->
+<section id="temperature" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#f472b6">فصل ۴</span>
+<h2>اثر دما بر انحلال‌پذیری و <span class="grad-text">نواحی نمودار</span></h2>
+<p>انحلال‌پذیری مواد جامد نسبت به دما دو رفتار متفاوت دارد. همچنین هر نقطه روی نمودار، وضعیت محلول را مشخص می‌کند.</p>
+</div>
+
+<div class="grid2">
+<div class="card glow-green reveal d1">
+<h3>🔥 گرم‌حلال — رابطه مستقیم</h3>
+<svg class="slope-svg" viewBox="0 0 300 130" style="width:100%;height:110px;direction:ltr">
+<line x1="30" y1="110" x2="280" y2="110" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+<line x1="30" y1="110" x2="30" y2="15" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+<path d="M35,105 C110,95 200,55 275,18" stroke="#34d399" stroke-width="5" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 6px rgba(52,211,153,.7))"/>
+</svg>
+<p>انحلال‌پذیری <b>با افزایش دما زیاد</b> می‌شود → شیب نمودار <b>صعودی</b> است. بیشتر جامدهای حل‌شدنی مثل نیترات‌ها گرم‌حلال‌اند: با گرم کردن حلال، می‌توان حل‌شونده بیشتری حل کرد.</p>
+</div>
+<div class="card glow-rose reveal d2">
+<h3>❄️ گرم‌گریز — رابطه معکوس</h3>
+<svg class="slope-svg" viewBox="0 0 300 130" style="width:100%;height:110px;direction:ltr">
+<line x1="30" y1="110" x2="280" y2="110" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+<line x1="30" y1="110" x2="30" y2="15" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+<path d="M35,18 C110,40 200,80 275,100" stroke="#fb7185" stroke-width="5" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 6px rgba(251,113,133,.7))"/>
+</svg>
+<p>انحلال‌پذیری <b>با افزایش دما کم</b> می‌شود → شیب نمودار <b>نزولی</b> است. مثال جزوه: <b>گاز اکسیژن در آب</b>؛ آب گرم اکسیژن کمتری در خود حل می‌کند (به همین دلیل ماهی‌ها آب سرد را بیشتر دوست دارند!).</p>
+</div>
+</div>
+
+<div class="note warn reveal" style="margin-top:20px"><span class="nicon">📐</span><span><b>قاعده مقایسه شیب (از جزوه):</b> هرچه <b>شیب نمودار تندتر</b> باشد، <b>وابستگی دمایی</b> آن ماده بیشتر است. مثل نقاط A و B در نمودار جزوه که شیب A از B بیشتر بود → وابستگی دمایی A بیشتر است. توجه: مقایسه دو منحنی باید در <b>بازه دمایی یکسان</b> انجام شود!</span></div>
+
+<div class="regions-wrap reveal">
+<svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+<g stroke="rgba(255,255,255,.07)"><line x1="60" y1="40" x2="60" y2="310"/><line x1="60" y1="310" x2="600" y2="310"/></g>
+<g font-size="13" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">
+<text x="330" y="345" text-anchor="middle">دما (°C)</text>
+<text x="20" y="180" transform="rotate(-90 20 180)" text-anchor="middle">انحلال‌پذیری</text>
+</g>
+<line x1="200" y1="310" x2="200" y2="50" stroke="rgba(255,255,255,.18)" stroke-dasharray="4 5"/>
+<text x="192" y="330" font-size="12" fill="#9aa7bd" font-family="Vazirmatn,Tahoma" text-anchor="middle">۴۰°C</text>
+<path d="M60,285 C180,262 300,190 430,120 C490,88 550,60 600,45" stroke="url(#curveGrad)" stroke-width="5" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 8px rgba(59,130,246,.55))"/>
+<g class="region-pt" id="ptA" style="color:#f87171">
+<circle class="dot" cx="200" cy="70" r="10" fill="#f87171" stroke="#fff" stroke-width="2.5"/>
+<text x="222" y="66" font-size="16" fill="#f87171" font-family="Vazirmatn,Tahoma">A</text>
+</g>
+<g class="region-pt" id="ptB" style="color:#fbbf24">
+<circle class="dot" cx="200" cy="208" r="10" fill="#fbbf24" stroke="#fff" stroke-width="2.5"/>
+<text x="222" y="204" font-size="16" fill="#fbbf24" font-family="Vazirmatn,Tahoma">B</text>
+</g>
+<g class="region-pt" id="ptC" style="color:#34d399">
+<circle class="dot" cx="200" cy="285" r="10" fill="#34d399" stroke="#fff" stroke-width="2.5"/>
+<text x="222" y="288" font-size="16" fill="#34d399" font-family="Vazirmatn,Tahoma">C</text>
+</g>
+<text x="470" y="90" font-size="12" fill="rgba(248,113,113,.75)" font-family="Vazirmatn,Tahoma">ناحیه فراسیرشده</text>
+<text x="480" y="215" font-size="12" fill="rgba(251,191,36,.8)" font-family="Vazirmatn,Tahoma">ناحیه سیرشده (منحنی)</text>
+<text x="460" y="285" font-size="12" fill="rgba(52,211,153,.8)" font-family="Vazirmatn,Tahoma">ناحیه سیرنشده</text>
+</svg>
+<div id="regionInfo">👆 مثل جزوه، در دمای ۴۰ درجه سه نقطه A و B و C روی نمودار مشخص شده است. روی هر نقطه کلیک کنید تا وضعیت محلول آن را ببینید!</div>
+</div>
+
+<details class="tamarin reveal">
+<summary>⚡ تمرین سریع فصل ۴</summary>
+<p class="q">❓ محلولی داریم که در دمای ۴۰ درجه، ۷۰ گرم نمک در ۱۰۰ گرم آب حل شده است؛ در حالی که انحلال‌پذیری این نمک در همین دما ۵۰ گرم است. این محلول چه وضعیتی دارد؟</p>
+<p class="a">✅ چون مقدار حل‌شونده (۷۰g) <b>بیشتر از انحلال‌پذیری (۵۰g)</b> است، نقطه آن <b>بالای منحنی</b> قرار می‌گیرد → محلول <b>فراسیرشده</b> است که ناپایدار است و با کوچک‌ترین ضربه، مقدار اضافی نمک رسوب می‌کند.</p>
+</details>
+</div>
+</section>
+<!-- ================= فصل ۵: مسائل ================= -->
+<section id="problems" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#fbbf24">فصل ۵</span>
+<h2>حل مسائل انحلال‌پذیری <span class="grad-text">گام‌به‌گام</span></h2>
+<p>روش حل طبق جزوه: <b>روش ستونی (تناسب)</b> — جدول حلال/حل‌شونده/محلول می‌سازیم و چون حلال همیشه ۱۰۰ گرم است، نسبت‌ها را با هم مقایسه می‌کنیم. روی دکمه هر گام کلیک کنید!</p>
+</div>
+
+<div class="note info reveal"><span class="nicon">🧰</span><span><b>روش ستونی در یک نگاه:</b> هر مسئله انحلال‌پذیری سه کمیت دارد: <b>حلال</b> (همیشه ۱۰۰g پایه)، <b>حل‌شونده</b> و <b>محلول = حلال + حل‌شونده</b>. نسبت هر کمیتی بین دو حالت، برابر نسبت بقیه است؛ چون محلول سیرشده در یک دما نسبت ثابتی دارد.</span></div>
+
+<!-- مسئله ۱ -->
+<div class="problem reveal">
+<h3><span class="pnum">۱</span>یافتن جرم حل‌شونده در محلول سیرشده</h3>
+<div class="p-statement">📝 <b>صورت مسئله (از جزوه):</b> انحلال‌پذیری ماده‌ای در دمای ۷۵ درجه سانتی‌گراد برابر ۵۰ گرم است. در ۷۵ گرم از محلول سیرشده این ماده در همان دما، چند گرم حل‌شونده وجود دارد؟</div>
+<div class="p-table">
+<div class="cell">حلال<b>۱۰۰g</b></div><div class="cell">حل‌شونده<b>۵۰g</b></div><div class="cell">محلول<b>۱۵۰g</b></div>
+</div>
+<div class="steps" data-p="1">
+<div class="step"><div class="sbody"><span class="snum">۱</span><b>ساخت جدول تناسب:</b> چون انحلال‌پذیری ۵۰ است، در محلول سیرشده: حلال ۱۰۰g + حل‌شونده ۵۰g = محلول ۱۵۰g.</div></div>
+<div class="step"><div class="sbody"><span class="snum">۲</span><b>تناسب محلول‌ها:</b> جرم محلول نمونه ۷۵g است؛ پس نسبت مقیاس = ۷۵ ÷ ۱۵۰ = <b>۰/۵</b> (نصف).</div></div>
+<div class="step"><div class="sbody"><span class="snum">۳</span><b>محاسبه حل‌شونده:</b> ۵۰ × ۰/۵ = <b>۲۵ گرم</b> حل‌شونده. (و حلال = ۱۰۰ × ۰/۵ = ۵۰g)</div></div>
+</div>
+<button class="btn btn-ghost" style="margin-top:14px" data-steps="1">👉 نمایش گام بعدی</button>
+<div class="final-answer" data-answer="1">✅ جواب: ۲۵ گرم حل‌شونده (به همراه ۵۰ گرم حلال)</div>
+</div>
+
+<!-- مسئله ۲ -->
+<div class="problem reveal">
+<h3><span class="pnum">۲</span>یافتن انحلال‌پذیری از روی محلول سیرشده</h3>
+<div class="p-statement">📝 <b>صورت مسئله (از جزوه):</b> در ۱۲۰ گرم محلول سیرشده نمک A در دمای محیط، ۴۰ گرم از این نمک وجود دارد. انحلال‌پذیری این نمک در دمای محیط را به دست آورید.</div>
+<div class="p-table">
+<div class="cell">حلال<b>۸۰g</b></div><div class="cell">حل‌شونده<b>۴۰g</b></div><div class="cell">محلول<b>۱۲۰g</b></div>
+</div>
+<div class="steps" data-p="2">
+<div class="step"><div class="sbody"><span class="snum">۱</span><b>پیدا کردن حلال:</b> حلال = محلول − حل‌شونده = ۱۲۰ − ۴۰ = <b>۸۰ گرم</b>.</div></div>
+<div class="step"><div class="sbody"><span class="snum">۲</span><b>تناسب به ۱۰۰ گرم حلال:</b> در ۸۰g حلال ← ۴۰g حل‌شونده حل شده؛ پس در ۱۰۰g حلال ← ۴۰ × (۱۰۰÷۸۰) = <b>۵۰g</b>.</div></div>
+</div>
+<button class="btn btn-ghost" style="margin-top:14px" data-steps="2">👉 نمایش گام بعدی</button>
+<div class="final-answer" data-answer="2">✅ جواب: انحلال‌پذیری این نمک در دمای محیط = ۵۰ گرم</div>
+</div>
+
+<!-- مسئله ۳ -->
+<div class="problem reveal">
+<h3><span class="pnum">۳</span>سرد کردن محلول و رسوب‌گیری</h3>
+<div class="p-statement">📝 <b>صورت مسئله:</b> انحلال‌پذیری نمکی در ۲۰°C برابر ۳۵g و در ۶۰°C برابر ۱۵۵g است. اگر ۲۵۵ گرم محلول سیرشده در ۶۰ درجه را تا ۲۰ درجه سرد کنیم، چند گرم رسوب به دست می‌آید؟ (حل به روش ستونی)</div>
+<div class="p-table">
+<div class="cell">حلال در ۶۰°C<b>۱۰۰g</b></div><div class="cell">حل‌شونده در ۶۰°C<b>۱۵۵g</b></div><div class="cell">محلول<b>۲۵۵g</b></div>
+<div class="cell">حلال در ۲۰°C<b>۱۰۰g</b></div><div class="cell">حل‌شونده باقی‌مانده<b>۳۵g</b></div><div class="cell hl">رسوب<b>۱۲۰g</b></div>
+</div>
+<div class="steps" data-p="3">
+<div class="step"><div class="sbody"><span class="snum">۱</span><b>بررسی جرم محلول:</b> در ۶۰ درجه: حلال ۱۰۰ + حل‌شونده ۱۵۵ = ۲۵۵g محلول — دقیقاً همان جرم داده‌شده! پس حلال = ۱۰۰g و حل‌شونده = ۱۵۵g.</div></div>
+<div class="step"><div class="sbody"><span class="snum">۲</span><b>سرد کردن تا ۲۰ درجه:</b> جرم حلال تغییر نمی‌کند (۱۰۰g). اما در ۲۰ درجه انحلال‌پذیری ۳۵g است؛ یعنی فقط ۳۵g از نمک می‌تواند حل بماند.</div></div>
+<div class="step"><div class="sbody"><span class="snum">۳</span><b>محاسبه رسوب:</b> رسوب = حل‌شونده اولیه − حل‌شونده باقی‌مانده = ۱۵۵ − ۳۵ = <b>۱۲۰ گرم</b>.</div></div>
+</div>
+<button class="btn btn-ghost" style="margin-top:14px" data-steps="3">👉 نمایش گام بعدی</button>
+<div class="final-answer" data-answer="3">✅ جواب: ۱۲۰ گرم رسوب از محلول جدا می‌شود</div>
+</div>
+
+<!-- مسئله ۴ -->
+<div class="problem reveal">
+<h3><span class="pnum">۴</span>یافتن انحلال‌پذیری دوم با وجود رسوب</h3>
+<div class="p-statement">📝 <b>صورت مسئله:</b> انحلال‌پذیری نمکی در ۸۰°C برابر ۵۰g است. با سرد کردن ۳۰۰ گرم از محلول سیرشده آن در ۸۰ درجه تا دمای پایین‌تر، ۵۰ گرم رسوب به دست می‌آید. انحلال‌پذیری این نمک در دمای جدید چند گرم است؟</div>
+<div class="p-table">
+<div class="cell">محلول در ۸۰°C<b>۳۰۰g</b></div><div class="cell">حلال<b>۲۰۰g</b></div><div class="cell">حل‌شونده اولیه<b>۱۰۰g</b></div>
+<div class="cell">رسوب<b>۵۰g</b></div><div class="cell">حل‌شونده باقی‌مانده<b>۵۰g</b></div><div class="cell hl">انحلال‌پذیری جدید<b>۲۵g</b></div>
+</div>
+<div class="steps" data-p="4">
+<div class="step"><div class="sbody"><span class="snum">۱</span><b>تجزیه محلول اولیه:</b> در ۸۰ درجه، هر ۱۵۰g محلول = ۱۰۰g حلال + ۵۰g حل‌شونده. برای ۳۰۰g محلول: حلال = ۳۰۰ × (۱۰۰÷۱۵۰) = <b>۲۰۰g</b> و حل‌شونده = <b>۱۰۰g</b>.</div></div>
+<div class="step"><div class="sbody"><span class="snum">۲</span><b>برداشتن رسوب:</b> ۵۰g رسوب می‌کند ← حل‌شونده باقی‌مانده = ۱۰۰ − ۵۰ = <b>۵۰g</b> (در ۲۰۰g حلال).</div></div>
+<div class="step"><div class="sbody"><span class="snum">۳</span><b>تناسب به ۱۰۰ گرم حلال:</b> انحلال‌پذیری = ۵۰ × (۱۰۰÷۲۰۰) = <b>۲۵ گرم</b>.</div></div>
+</div>
+<button class="btn btn-ghost" style="margin-top:14px" data-steps="4">👉 نمایش گام بعدی</button>
+<div class="final-answer" data-answer="4">✅ جواب: انحلال‌پذیری این نمک در دمای جدید = ۲۵ گرم</div>
+</div>
+</div>
+</section>
+
+<!-- ================= فصل ۶: گازها ================= -->
+<section id="gases" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#2dd4bf">فصل ۶</span>
+<h2>انحلال‌پذیری <span class="grad-text">گازها</span> در آب</h2>
+<p>طبق جزوه، انحلال‌پذیری گازها در آب به <b>سه عامل</b> بستگی دارد: دما، فشار و نوع گاز. با شبیه‌ساز زیر بازی کنید تا رفتار مولکول‌های گاز را ببینید!</p>
+</div>
+
+<div class="grid3">
+<div class="card glow-rose reveal d1">
+<h3>🌡️ ۱) دما — رابطه معکوس</h3>
+<p>با گرم شدن آب، مولکول‌های گاز انرژی گرفته و از آب <b>خارج می‌شوند</b>: دما ↑ ← انحلال‌پذیری ↓</p>
+<p style="margin-top:8px">مثل جزوه: <b>هرچه سردتر، انحلال بیشتر!</b> به همین دلیل جوشاندن آب، گازهای محلول را از آن خارج می‌کند.</p>
+</div>
+<div class="card glow-amber reveal d2">
+<h3>🫸 ۲) فشار — رابطه مستقیم</h3>
+<p>هرچه فشار روی سطح مایع بیشتر باشد، مولکول‌های گاز با نیروی بیشتری به داخل مایع هل داده می‌شوند: فشار ↑ ← انحلال‌پذیری ↑</p>
+<p style="margin-top:8px">به همین دلیل نوشابه زیر فشار در بطری، گاز بیشتری در خود نگه می‌دارد.</p>
+</div>
+<div class="card glow-cyan reveal d3">
+<h3>🧪 ۳) نوع گاز — انحلال شیمیایی</h3>
+<p>برخی گازها علاوه بر <b>انحلال فیزیکی</b>، با آب <b>واکنش شیمیایی</b> هم می‌دهند و به همین دلیل بیشتر حل می‌شوند:</p>
+<div style="text-align:center;margin-top:12px;padding:12px;border-radius:12px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.35);font-weight:900;direction:ltr">CO₂ + H₂O → H₂CO₃</div>
+<p style="margin-top:8px">کربن دی‌اکسید + آب ← <b>اسید کربنیک</b></p>
+</div>
+</div>
+
+<div class="card glow-green reveal" style="margin-top:22px">
+<h3>🎮 شبیه‌ساز تعاملی — دما و فشار را تغییر دهید!</h3>
+<div class="gas-wrap">
+<div class="gas-visual">
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+<rect x="70" y="90" width="160" height="190" rx="10" fill="rgba(96,165,250,.08)" stroke="rgba(96,165,250,.5)" stroke-width="2.5"/>
+<rect x="74" y="140" width="152" height="136" rx="8" fill="rgba(59,130,246,.18)"/>
+<line x1="74" y1="140" x2="226" y2="140" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<g id="gasDots"></g>
+<text x="150" y="296" font-size="12" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">مولکول‌های گاز: آبی = حل‌شده در آب ، صورتی = خارج‌شده</text>
+</svg>
+</div>
+<div class="gas-ctl">
+<div class="ctl">
+<label><span>🌡️ دما</span><b id="tempVal">۲۵°C</b></label>
+<input type="range" id="gasTemp" min="0" max="100" value="25">
+</div>
+<div class="ctl">
+<label><span>🫸 فشار</span><b id="presVal">۳ اتمسفر</b></label>
+<input type="range" id="gasPres" min="1" max="5" value="3">
+</div>
+<div class="gas-count" id="gasCount">مولکول‌های حل‌شده: —</div>
+<div class="note info" style="margin:0"><span class="nicon">💡</span><span>دما را بالا ببرید ← مولکول‌ها فرار می‌کنند! فشار را بالا ببرید ← مولکول‌ها به داخل آب برمی‌گردند. این دقیقاً همان «رابطه معکوس با دما و مستقیم با فشار» است.</span></div>
+</div>
+</div>
+</div>
+
+<details class="tamarin reveal">
+<summary>⚡ تمرین سریع فصل ۶</summary>
+<p class="q">❓ چرا وقتی درب بطری نوشابه را باز می‌کنیم، کف و حباب از آن خارج می‌شود؟ و چرا نوشابه گرم سریع‌تر بی‌گاز می‌شود؟</p>
+<p class="a">✅ با باز کردن درب، <b>فشار کاهش</b> می‌یابد ← انحلال‌پذیری CO₂ کم می‌شود و گاز خارج می‌شود (رابطه مستقیم با فشار). در نوشابه گرم، <b>دما بالاتر</b> است ← انحلال‌پذیری گاز کمتر می‌شود (رابطه معکوس با دما) ← گاز سریع‌تر فرار می‌کند. ضمناً بخشی از CO₂ با آب <b>واکنش شیمیایی</b> داده و اسید کربنیک ساخته است!</p>
+</details>
+</div>
+</section>
+<!-- ================= فصل ۷: مقایسه ================= -->
+<section id="compare" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#818cf8">فصل ۷</span>
+<h2>مقایسه <span class="grad-text">محلول، کلوئید و سوسپانسیون</span></h2>
+<p>طبق جزوه، این سه مخلوط را از چهار نظر مقایسه می‌کنیم: <b>اندازه ذرات، پایداری، همگنی و عبور نور</b>. به حرکت ذرات در هر ستون دقت کنید!</p>
+</div>
+
+<div class="cmp-grid">
+<div class="cmp-col sol reveal d1">
+<div class="cmp-head">💧 محلول</div>
+<div class="cmp-demo"><div class="liq"></div>
+<div class="pt" style="top:40%;right:15%"></div><div class="pt" style="top:55%;right:35%;animation-delay:.7s"></div><div class="pt" style="top:35%;right:55%;animation-delay:1.3s"></div><div class="pt" style="top:60%;right:70%;animation-delay:.4s"></div><div class="pt" style="top:48%;right:88%;animation-delay:1.8s"></div><div class="pt" style="top:70%;right:50%;animation-delay:1.1s"></div>
+</div>
+<div class="cmp-body"><b>ذرات خیلی ریز و پایدار.</b> ذرات آن کوچک‌تر از ۱ نانومترند، ته‌نشین نمی‌شوند و نور به‌راحتی از آن عبور می‌کند و مسیر نور دیده نمی‌شود.</div>
+</div>
+<div class="cmp-col col reveal d2">
+<div class="cmp-head">🥛 کلوئید</div>
+<div class="cmp-demo"><div class="liq"></div>
+<div class="pt" style="top:42%;right:12%"></div><div class="pt" style="top:60%;right:30%;animation-delay:1s"></div><div class="pt" style="top:35%;right:52%;animation-delay:2s"></div><div class="pt" style="top:55%;right:70%;animation-delay:.5s"></div><div class="pt" style="top:65%;right:88%;animation-delay:1.5s"></div>
+</div>
+<div class="cmp-body"><b>ذرات شناور و نسبتاً پایدار.</b> ذرات بین ۱ تا ۱۰۰۰ نانومترند که به‌صورت شناور می‌مانند و ته‌نشین نمی‌شوند. مسیر نور را پراکنده و <b>آشکار می‌کنند (اثر تایندال)</b>.</div>
+</div>
+<div class="cmp-col sus reveal d3">
+<div class="cmp-head">🏝️ سوسپانسیون</div>
+<div class="cmp-demo"><div class="liq"></div>
+<div class="pt" style="top:30%;right:18%"></div><div class="pt" style="top:25%;right:45%;animation-delay:1.4s"></div><div class="pt" style="top:35%;right:68%;animation-delay:.8s"></div><div class="pt" style="top:20%;right:85%;animation-delay:2.1s"></div>
+</div>
+<div class="cmp-body"><b>ذرات درشت و ناپایدار.</b> ذرات بزرگ‌تر از ۱۰۰۰ نانومتر (۱ میکرومتر) دارند و به‌مرور <b>ته‌نشین می‌شوند</b>. نور از آن عبور نمی‌کند و ظاهری کدر دارد.</div>
+</div>
+</div>
+
+<div class="card glow-cyan reveal">
+<h3>📋 جدول مقایسه کامل (مطابق جزوه)</h3>
+<div style="overflow-x:auto">
+<table class="cmp-table">
+<thead><tr><th>معیار مقایسه</th><th>💧 محلول</th><th>🥛 کلوئید</th><th>🏝️ سوسپانسیون</th></tr></thead>
+<tbody>
+<tr><td>اندازه ذرات</td><td>کوچک‌تر از ۱ نانومتر</td><td>۱ تا ۱۰۰۰ نانومتر</td><td>بزرگ‌تر از ۱۰۰۰ نانومتر</td></tr>
+<tr><td>پایداری</td><td class="ok">پایدار — ته‌نشین نمی‌شود</td><td class="mid">شناور — نسبتاً پایدار</td><td class="no">ناپایدار — ته‌نشین می‌شود</td></tr>
+<tr><td>همگنی</td><td class="ok">کاملاً همگن</td><td class="mid">ظاهراً همگن</td><td class="no">ناهمگن</td></tr>
+<tr><td>عبور نور</td><td class="ok">عبور کامل — مسیر نامرئی</td><td class="mid">پراکنده‌سازی — اثر تایندال</td><td class="no">عبور نمی‌کند — کدر</td></tr>
+<tr><td>مثال</td><td>آب نمک، آب شکر</td><td>شیر، مه، ژله</td><td>آب و خاک، آب و روغن</td></tr>
+</tbody>
+</table>
+</div>
+<div class="note info" style="margin-top:16px"><span class="nicon">🔦</span><span><b>اثر تایندال چیست؟</b> اگر پرتو نور به کلوئید بتابد، ذرات شناور آن نور را <b>پراکنده</b> می‌کنند و مسیر پرتو از داخل مخلوط دیده می‌شود (مثل نور اتومبیل در مه!). در محلول این اتفاق نمی‌افتد و در سوسپانسیون نور اصلاً عبور نمی‌کند.</span></div>
+<div class="note success" style="margin-top:12px"><span class="nicon">📄</span><span><b>نکته صاف کردن:</b> هنگام صاف کردن با کاغذ صافی معمولی، ذرات <b>سوسپانسیون</b> روی صافی می‌مانند ولی ذرات ریز <b>کلوئید</b> از آن عبور می‌کنند — مثل صاف کردن آب‌میوه که بخش کلوئیدی آن همچنان کدر است.</span></div>
+</div>
+
+<details class="tamarin reveal">
+<summary>⚡ تمرین سریع فصل ۷</summary>
+<p class="q">❓ سه ظرف داریم: آب‌لیمو صاف‌شده، شیر، و گل‌آلود. نور لیزری به هر سه بتابانیم در کدام‌ها مسیر پرتو دیده می‌شود یا دیده نمی‌شود؟</p>
+<p class="a">✅ آب‌لیمو (محلول) ← نور عبور می‌کند و مسیرش نامرئی است. شیر (کلوئید) ← نور پراکنده شده و <b>مسیر پرتو دیده می‌شود (تایندال)</b>. گل‌آلود (سوسپانسیون) ← نور عبور نمی‌کند و ظرف کدر است.</p>
+</details>
+</div>
+</section>
+
+<!-- ================= فصل ۸: تکنیک‌های جداسازی ================= -->
+<section id="separation" class="section">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#fb7185">فصل ۸</span>
+<h2>تکنیک‌های <span class="grad-text">جداسازی مواد</span></h2>
+<p>هر تکنیک برای یک نوع مخلوط طراحی شده است. روی هر کارت کلیک کنید تا توضیح کامل و مثال جزوه را ببینید — و به انیمیشن‌ها نگاه کنید!</p>
+</div>
+
+<div class="note warn reveal"><span class="nicon">🧭</span><span><b>نقشه راه جزوه:</b> برای جدا کردن <b>حلال از حل‌شونده</b> در محلول‌ها و مخلوط‌های کلوئیدی و سوسپانسیونی، از دو مفهوم «<b>فاز تبخیرشونده</b>» (حلال فرار) و «<b>فاز باقی‌مانده</b>» (حل‌شونده) استفاده می‌کنیم → تکنیک‌های اصلی: <b>تبخیر</b> و <b>تقطیر</b>. برای مخلوط‌های ناهمگن هم ابزارهای دیگری داریم که در ادامه می‌بینید.</span></div>
+
+<div class="grid2" style="margin-top:24px">
+
+<!-- تبخیر -->
+<div class="tech card glow-amber reveal d1">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<rect x="90" y="105" width="160" height="50" rx="8" fill="rgba(251,191,36,.16)" stroke="rgba(251,191,36,.6)" stroke-width="2"/>
+<rect x="150" y="128" width="40" height="12" rx="3" fill="#fbbf24" opacity=".85"/>
+<rect x="188" y="131" width="22" height="10" rx="3" fill="#fbbf24" opacity=".7"/>
+<rect x="124" y="132" width="18" height="9" rx="3" fill="#fbbf24" opacity=".6"/>
+<circle class="bubble" cx="130" cy="140" r="4" style="animation-delay:0s"/>
+<circle class="bubble" cx="160" cy="145" r="3" style="animation-delay:.6s"/>
+<circle class="bubble" cx="190" cy="138" r="5" style="animation-delay:1.2s"/>
+<circle class="bubble" cx="215" cy="142" r="3.4" style="animation-delay:1.8s"/>
+<circle class="steam" cx="140" cy="100" r="9" style="animation-delay:0s"/>
+<circle class="steam" cx="170" cy="100" r="7" style="animation-delay:1s"/>
+<circle class="steam" cx="200" cy="100" r="9" style="animation-delay:2s"/>
+<text x="170" y="30" font-size="13" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">بخار حلال ↑ | بلورهای حل‌شونده در ظرف می‌ماند</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۱) تبخیر (Evaporation)</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای جدا کردن <b>حل‌شونده از حلالِ فرار</b>. محلول را حرارت می‌دهیم تا حلال تبخیر شود (فاز تبخیرشونده) و حل‌شونده در ظرف باقی بماند (فاز باقی‌مانده).</p>
+<p><b>چگونه؟</b> با حرارت دادن آرام محلول، حلال به‌صورت بخار خارج می‌شود و بلورهای حل‌شونده باقی می‌مانند.</p>
+<span class="ex-badge">مثال: جدا کردن نمک از آب نمک دریا</span>
+</div></div>
+</div>
+
+<!-- تقطیر -->
+<div class="tech card glow-cyan reveal d2">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<path class="flame" d="M60,152 C52,138 68,132 60,118 C74,128 74,140 68,152 Z" fill="#fb923c"/>
+<path class="flame" d="M72,152 C66,142 78,136 72,126 C82,134 82,144 78,152 Z" fill="#fbbf24" opacity=".9"/>
+<circle cx="60" cy="98" r="24" fill="rgba(96,165,250,.16)" stroke="rgba(96,165,250,.6)" stroke-width="2"/>
+<circle cx="60" cy="98" r="10" fill="rgba(167,139,250,.5)"/>
+<path class="vapor-flow" d="M60,74 C60,44 110,34 150,34 L235,34" stroke="#a5f3fc" stroke-width="3" fill="none"/>
+<path class="cool-flow" d="M245,22 L245,58" stroke="#22d3ee" stroke-width="5" opacity=".4"/>
+<path class="cool-flow" d="M262,22 L262,58" stroke="#22d3ee" stroke-width="5" opacity=".4"/>
+<rect x="233" y="18" width="42" height="46" rx="10" fill="none" stroke="rgba(34,211,238,.55)" stroke-width="2"/>
+<path class="vapor-flow" d="M275,64 C295,80 295,95 290,108" stroke="#a5f3fc" stroke-width="3" fill="none"/>
+<rect x="262" y="108" width="60" height="42" rx="8" fill="rgba(52,211,153,.12)" stroke="rgba(52,211,153,.55)" stroke-width="2"/>
+<circle cx="292" cy="138" r="4" fill="#34d399"><animate attributeName="cy" values="110;138" dur="1s" repeatCount="indefinite"/></circle>
+<text x="120" y="152" font-size="11" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">حرارت ۷۰°C</text>
+<text x="283" y="165" font-size="11" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">الکل مایع شده</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۲) تقطیر (Distillation)</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> وقتی بخواهیم <b>حلال را هم نگه داریم</b>؛ یعنی وقتی اختلاف نقطه جوش اجزا <b>زیاد</b> است.</p>
+<p><b>مثال جزوه:</b> نقطه جوش آب <b>۱۰۰°C</b> و الکل <b>۷۰°C</b> است. مخلوط آب و الکل را حرارت می‌دهیم: در ۷۰ درجه الکل می‌جوشد و تبخیر می‌شود اما آب هنوز نمی‌جوشد! بخار الکل وارد مبرد (سردکننده) می‌شود، میعان می‌کند و به‌صورت مایع در ظرف دیگر جمع می‌شود.</p>
+<span class="ex-badge">مثال: جدا کردن الکل از آب ، تولید آب مقطر</span>
+</div></div>
+</div>
+
+<!-- صاف کردن -->
+<div class="tech card glow-green reveal d1">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<path d="M100,30 L240,30 L195,95 L145,95 Z" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2.5"/>
+<line x1="145" y1="90" x2="195" y2="90" stroke="#34d399" stroke-width="6" stroke-linecap="round"/>
+<circle class="precip-dot" cx="150" cy="55" r="6" fill="#fb7185" style="animation-delay:0s"/>
+<circle class="precip-dot" cx="180" cy="48" r="5" fill="#fb7185" style="animation-delay:1s"/>
+<circle class="filter-block" cx="168" cy="82" r="6" fill="#fbbf24"/>
+<circle class="filter-block" cx="185" cy="84" r="5" fill="#fbbf24"/>
+<circle class="drop-out" cx="170" cy="105" r="3.4" fill="#60a5fa" style="animation-delay:.2s"/>
+<circle class="drop-out" cx="170" cy="105" r="3" fill="#60a5fa" style="animation-delay:1.1s"/>
+<rect x="130" y="140" width="80" height="22" rx="6" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.45)" stroke-width="2"/>
+<text x="215" y="88" font-size="11" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">کاغذ صافی</text>
+<text x="170" y="25" font-size="12" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">جامد می‌ماند ✕ | مایع رد می‌شود ✓</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۳) صاف کردن (Filtration)</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای جدا کردن <b>ذرات جامد نامحلول</b> از مایع؛ بیشتر برای مخلوط‌های ناهمگن جامد-مایع.</p>
+<p>ذرات جامد بزرگ‌تر از منافذ کاغذ صافی هستند و روی صافی می‌مانند، ولی مایع از آن رد می‌شود. ذرات کلوئید به‌دلیل ریز بودن از صافی معمولی عبور می‌کنند.</p>
+<span class="ex-badge">مثال جزوه: ماسه و آب که ماسه از صافی رد نمی‌شود — صاف کردن آب‌میوه</span>
+</div></div>
+</div>
+
+<!-- قیف جداکننده -->
+<div class="tech card glow-purple reveal d2" id="funnelCard">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<path d="M110,25 L230,25 L178,105 L162,105 Z" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5"/>
+<path d="M116,32 L224,32 L175,98 L165,98 Z" fill="rgba(251,191,36,.35)"/>
+<path d="M166,72 L174,72 L172,98 L168,98 Z" fill="rgba(96,165,250,.5)"/>
+<rect x="165" y="105" width="10" height="14" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+<circle id="funnelTap" cx="170" cy="126" r="6" fill="#34d399"/>
+<circle class="drop-out" id="funnelDrop" cx="170" cy="132" r="4" fill="#60a5fa" style="animation-play-state:paused;opacity:0"/>
+<rect x="140" y="140" width="60" height="20" rx="6" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.45)" stroke-width="2"/>
+<text x="250" y="60" font-size="11" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">روغن (رو)</text>
+<text x="250" y="85" font-size="11" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">آب (زیر)</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۴) قیف جداکننده 🔴 تعاملی</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای جدا کردن <b>دو مایع نامحلول</b> (ناهمگن مایع در مایع) که با هم مخلوط نمی‌شوند و دو لایه جدا می‌سازند.</p>
+<p><b>چگونه؟</b> شیر قیف را باز می‌کنیم تا لایه <b>زیرین</b> (آب، به‌دلیل چگالی بیشتر) خارج شود؛ درست قبل از رسیدن به لایه بالایی شیر را می‌بندیم.</p>
+<button class="btn btn-ghost" style="margin-top:10px" id="funnelBtn">🚰 باز کردن شیر قیف</button>
+<span class="ex-badge">مثال: جدا کردن روغن و آب</span>
+</div></div>
+</div>
+
+<!-- کروماتوگرافی -->
+<div class="tech card glow-pink reveal d1">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<rect x="120" y="30" width="90" height="115" rx="6" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+<rect x="120" y="128" width="90" height="17" fill="rgba(96,165,250,.25)"/>
+<circle class="chroma-band" cx="140" cy="122" r="5" fill="#34d399" style="animation-delay:0s"/>
+<circle class="chroma-band" cx="165" cy="122" r="5" fill="#f472b6" style="animation-delay:.5s"/>
+<circle class="chroma-band" cx="190" cy="122" r="5" fill="#fbbf24" style="animation-delay:1s"/>
+<rect x="95" y="140" width="140" height="16" rx="5" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.4)" stroke-width="1.5"/>
+<text x="255" y="80" font-size="11" fill="#9aa7bd" font-family="Vazirmatn,Tahoma">رنگ‌ها با سرعت متفاوت بالا می‌روند</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۵) کروماتوگرافی (Chromatography)</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای جدا کردن <b>رنگدانه‌های یک رنگ</b> از هم (جداسازی مواد محلول بر اساس حلالیت).</p>
+<p><b>چگونه؟</b> مطابق جزوه: نوک کاغذ را در محلول (آب یا الکل) قرار می‌دهیم؛ حلال <b>کم‌کم از کاغذ بالا می‌رود</b> و رنگدانه‌ها را همراه خود می‌برد. رنگدانه‌ای که <b>حلالیت بیشتری</b> دارد، بالاتر می‌رود و رنگدانه‌ای که جذب کاغذ بیشتر دارد، پایین می‌ماند. بدین ترتیب هر رنگدانه در جای مشخصی از کاغذ می‌نشیند و قابل شناسایی است.</p>
+<span class="ex-badge">مثال: جدا کردن رنگ‌های ماژیک و جوهر گیاهان</span>
+</div></div>
+</div>
+
+<!-- سانتریفیوژ -->
+<div class="tech card glow-rose reveal d2">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<g class="spin-wrap" style="transform-origin:170px 85px">
+<rect x="118" y="45" width="104" height="80" rx="14" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2.5"/>
+<rect x="134" y="58" width="20" height="54" rx="8" fill="rgba(251,113,133,.3)"/>
+<rect x="160" y="58" width="20" height="54" rx="8" fill="rgba(251,113,133,.3)"/>
+<rect x="186" y="58" width="20" height="54" rx="8" fill="rgba(251,113,133,.3)"/>
+<circle cx="144" cy="104" r="5" fill="#fb7185"/><circle cx="170" cy="104" r="5" fill="#fb7185"/><circle cx="196" cy="104" r="5" fill="#fb7185"/>
+</g>
+<circle cx="170" cy="85" r="7" fill="#e2e8f0"/>
+<text x="170" y="150" font-size="12" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">چرخش سریع ← ذرات سنگین به بیرون پرتاب می‌شوند</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۶) سانتریفیوژ (Centrifuge)</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای جدا کردن اجزای یک مخلوط با استفاده از <b>نیروی گریز از مرکز</b>.</p>
+<p><b>چگونه؟</b> با چرخش با سرعت بسیار بالا، ذرات سنگین‌تر (چگال‌تر) به سمت بیرون/کف لوله پرتاب می‌شوند و از اجزای سبک‌تر جدا می‌شوند.</p>
+<span class="ex-badge">مثال جزوه: جدا کردن اجزای خون (گلبول‌ها از پلاسما)</span>
+</div></div>
+</div>
+
+<!-- سرریز کردن -->
+<div class="tech card glow-cyan reveal d1">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<g class="tilt-group" style="transform-origin:150px 70px;animation:tiltPour 4s ease-in-out infinite">
+<path d="M90,40 L210,40 L210,100 L90,100 Z" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.5)" stroke-width="2.5"/>
+<rect x="94" y="55" width="112" height="41" fill="rgba(96,165,250,.3)"/>
+<circle cx="120" cy="90" r="8" fill="#fb923c"/><circle cx="145" cy="92" r="7" fill="#fb923c"/><circle cx="172" cy="90" r="8" fill="#fb923c"/>
+</g>
+<path class="pour-stream" d="M210,62 C245,70 258,90 262,112" stroke="#60a5fa" stroke-width="4" fill="none" opacity=".85"/>
+<rect x="235" y="112" width="60" height="40" rx="7" fill="rgba(96,165,250,.14)" stroke="rgba(96,165,250,.5)" stroke-width="2"/>
+<text x="170" y="25" font-size="12" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">مایع آرام سرریز می‌شود؛ سنگ‌ریزه‌ها می‌مانند</text>
+<style>@keyframes tiltPour{0%,15%{transform:rotate(0)}45%,65%{transform:rotate(-14deg)}95%,100%{transform:rotate(0)}}</style>
+</svg>
+</div>
+<div class="tech-head"><h3>۷) سرریز کردن (Decantation)</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای جدا کردن <b>مایع از جامد ته‌نشین‌شده</b>، وقتی ابزار صافی در دسترس نیست.</p>
+<p><b>چگونه؟</b> ظرف را آرام خم می‌کنیم تا مایع زلال بالای جامد، به‌صورت ملایم در ظرف دیگر سرریز شود و جامد سنگین در ظرف بماند.</p>
+<span class="ex-badge">مثال جزوه: جدا کردن آب از سنگ‌ریزه</span>
+</div></div>
+</div>
+
+<!-- نمک و صابون -->
+<div class="tech card glow-purple reveal d2" id="soapCard">
+<div class="tech-visual">
+<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<rect x="55" y="70" width="90" height="70" rx="9" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+<rect x="58" y="100" width="84" height="37" rx="7" fill="rgba(167,139,250,.3)"/>
+<g id="soapPrecip"></g>
+<text x="175" y="60" font-size="15" fill="#fbbf24" font-weight="bold">🧂</text>
+<path d="M175,66 L155,88" stroke="rgba(251,191,36,.7)" stroke-width="2" stroke-dasharray="3 4"/>
+<rect x="185" y="70" width="90" height="70" rx="9" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+<rect x="188" y="100" width="84" height="37" rx="7" fill="rgba(96,165,250,.2)"/>
+<text x="100" y="160" font-size="11" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">صابون + نمک = رسوب سفید</text>
+<text x="230" y="160" font-size="11" fill="#9aa7bd" text-anchor="middle" font-family="Vazirmatn,Tahoma">آب + نمک = بدون تغییر</text>
+</svg>
+</div>
+<div class="tech-head"><h3>۸) جداسازی با افزودن نمک 🟣 تعاملی</h3><span class="chev">▾</span></div>
+<div class="tech-body"><div class="inner">
+<p><b>چه زمانی؟</b> برای تشخیص و جدا کردن <b>صابون محلول</b> از آب؛ یک جداسازی شیمیایی-فیزیکی جالب!</p>
+<p><b>چگونه؟</b> مطابق جزوه: وقتی به محلول صابون، <b>سدیم کلرید (نمک طعام)</b> اضافه می‌کنیم، صابون حلالیت خود را از دست می‌دهد و به‌صورت <b>رسوب سفید</b> بالا می‌آید. اما به آب خالی که نمک اضافه کنیم، رسوبی تشکیل نمی‌شود — این راهی برای تشخیص صابون از آب است.</p>
+<button class="btn btn-ghost" style="margin-top:10px" id="soapBtn">🧂 افزودن نمک به ظرف‌ها</button>
+<span class="ex-badge">مثال جزوه: تشکیل رسوب سفید صابون با نمک طعام</span>
+</div></div>
+</div>
+
+</div>
+
+<details class="tamarin reveal">
+<summary>⚡ تمرین سریع فصل ۸</summary>
+<p class="q">❓ برای هر مورد کدام تکنیک مناسب‌تر است؟ الف) جدا کردن الکل از آب ب) جدا کردن گل‌آلودی از آب ج) جدا کردن رنگ‌های یک ماژیک د) جدا کردن گلبول‌های قرمز از خون</p>
+<p class="a">✅ الف) <b>تقطیر</b> (اختلاف نقطه جوش: ۷۰ و ۱۰۰ درجه). ب) <b>صاف کردن یا سرریز کردن</b> (جامد نامحلول). ج) <b>کروماتوگرافی</b> (جداسازی رنگدانه‌ها بر اساس حلالیت). د) <b>سانتریفیوژ</b> (نیروی گریز از مرکز).</p>
+</details>
+</div>
+</section>
+<!-- ================= امتحان پایانی ================= -->
+<section id="quiz" class="section quiz-sec">
+<div class="container">
+<div class="section-head reveal">
+<span class="kicker" style="--c:#34d399">مرحله نهایی</span>
+<h2>📝 <span class="grad-text">امتحان پایانی</span> — ۵۰ سؤال</h2>
+<p>همه فصل‌های جزوه را پوشش می‌دهد: مفاهیم، نمودار، محاسبات و تکنیک‌های جداسازی. با هر پاسخ، توضیح کامل همان سؤال را می‌بینید تا اشتباهاتتان هم یادگیری باشند!</p>
+</div>
+<div class="quiz-box reveal">
+<div class="qstart" id="qStart">
+<span class="big">🎯</span>
+<h3>آماده چالش نهایی هستی؟</h3>
+<p style="color:var(--muted);max-width:560px;margin:0 auto">۵۰ سؤال چهارگزینه‌ای از تمام ۸ فصل جزوه. می‌توانی در پایان نمره، درصد و مرور کامل پاسخ‌های غلط را ببینی.</p>
+<div class="qrules">
+<span class="qrule">📋 <b>۵۰</b> سؤال چهارگزینه‌ای</span>
+<span class="qrule">⏱️ تایمر شمارش زمان</span>
+<span class="qrule">💡 توضیح بعد از هر پاسخ</span>
+<span class="qrule">📊 کارنامه و تحلیل نهایی</span>
+</div>
+<button class="btn btn-primary" id="qBegin">🚀 شروع امتحان</button>
+</div>
+<div class="quiz-game hidden" id="qGame">
+<div class="quiz-top">
+<span id="qCount">سؤال ۱ از ۵۰</span>
+<div class="qprog"><i id="qProgBar"></i></div>
+<span id="qTimer">۰۰:۰۰</span>
+</div>
+<div class="qtopic" id="qTopic"></div>
+<h3 class="qtext" id="qText"></h3>
+<div class="qopts" id="qOpts"></div>
+<div class="qexplain hidden" id="qExplain"></div>
+<div class="qnav"><button class="btn btn-primary hidden" id="qNext">سؤال بعدی ◀</button></div>
+</div>
+<div class="qend hidden" id="qEnd">
+<span class="big" id="endEmoji">🏆</span>
+<div class="score-circle" id="scoreCircle" style="--p:0"><div class="sc-in"><div class="sc-num" id="scoreNum">۰</div><div class="sc-lab">درصد موفقیت</div></div></div>
+<div class="grade-msg" id="gradeMsg"></div>
+<div class="qend-stats">
+<div class="qs"><b id="stCorrect" style="color:#6ee7b7">۰</b><span>پاسخ درست</span></div>
+<div class="qs"><b id="stWrong" style="color:#fca5a5">۰</b><span>پاسخ غلط</span></div>
+<div class="qs"><b id="stTime">۰:۰۰</b><span>زمان سپری‌شده</span></div>
+<div class="qs"><b id="stScore">۰ از ۵۰</b><span>نمره نهایی</span></div>
+</div>
+<div class="review-list" id="reviewList"></div>
+<button class="btn btn-primary" id="qRestart">🔄 تلاش مجدد</button>
+<button class="btn btn-ghost" style="margin-right:10px" onclick="location.hash='#mixtures'">📖 مرور دوباره جزوه</button>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="fbrand">⚗️ جزوه تعاملی شیمی</div>
+<p>تدوین‌شده بر اساس جزوه دست‌نویس «مخلوط‌ها و جداسازی مواد» — با تعامل، انیمیشن و امتحان پایانی برای یادگیری عمیق‌تر</p>
+<p style="font-size:.78rem;margin-top:6px">💡 برای بهترین تجربه از آخرین نسخه مرورگر استفاده کنید و با نمودارها و شبیه‌سازها بازی کنید!</p>
+</div>
+</footer>
+<button id="toTop" title="بازگشت به بالا">↑</button>
+
+<script>
+/* ================== ذرات پس‌زمینه هیرو ================== */
+(function(){
+const cv=document.getElementById('bgCanvas');if(!cv)return;
+const ctx=cv.getContext('2d');let W,H,pts=[];
+const COLORS=['#22d3ee','#a78bfa','#f472b6','#60a5fa','#34d399'];
+function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+resize();window.addEventListener('resize',resize);
+const N=Math.min(46,Math.floor(W/26));
+for(let i=0;i<N;i++){pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,r:2+Math.random()*3.4,c:COLORS[i%COLORS.length]});}
+function draw(){
+ctx.clearRect(0,0,W,H);
+for(let i=0;i<pts.length;i++){const p=pts[i];
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+for(let j=i+1;j<pts.length;j++){const q=pts[j];const dx=p.x-q.x,dy=p.y-q.y,d=Math.sqrt(dx*dx+dy*dy);
+if(d<115){ctx.strokeStyle='rgba(125,180,255,'+(.16*(1-d/115))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}}
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c;ctx.globalAlpha=.75;ctx.fill();ctx.globalAlpha=1;}
+requestAnimationFrame(draw);}
+draw();})();
+
+/* ================== reveal on scroll ================== */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ================== progress bar + nav spy + toTop ================== */
+const bar=document.getElementById('progressBar'),toTop=document.getElementById('toTop');
+window.addEventListener('scroll',()=>{
+const h=document.documentElement;
+bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+toTop.classList.toggle('show',h.scrollTop>650);
+let cur='';
+document.querySelectorAll('section[id]').forEach(s=>{if(h.scrollTop>=s.offsetTop-160)cur=s.id;});
+document.querySelectorAll('#navLinks a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+toTop.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+/* ================== درخت طبقه‌بندی ================== */
+const treeInfo=document.getElementById('treeInfo');
+const defaultTree=treeInfo.innerHTML;
+document.querySelectorAll('.tnode').forEach(n=>{
+n.addEventListener('click',()=>{
+document.querySelectorAll('.tnode').forEach(x=>x.classList.remove('sel'));
+n.classList.add('sel');
+treeInfo.style.animation='none';void treeInfo.offsetWidth;
+treeInfo.innerHTML=n.dataset.t;treeInfo.style.animation='fadeUp .45s both';
+});});
+
+/* ================== فلش‌کارت ================== */
+document.querySelectorAll('.flip').forEach(f=>f.addEventListener('click',()=>f.classList.toggle('on')));
+
+/* ================== نمودار انحلال‌پذیری تعاملی ================== */
+(function(){
+const svg=document.getElementById('solChart');if(!svg)return;
+const dot=document.getElementById('movingDot'),gv=document.getElementById('guideV'),gh=document.getElementById('guideH');
+const msg=document.getElementById('chartMsg'),slider=document.getElementById('tempSlider'),ro=document.getElementById('tempReadout');
+function fx(t){return 100+15*(t-10);}  // temp 10..50 -> x
+function fy(s){return 360-5*(s-20);}   // sol 20..60 -> y
+const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+function setTemp(t){
+const s=t+10;const x=fx(t),y=fy(s);
+dot.setAttribute('cx',x);dot.setAttribute('cy',y);
+gv.setAttribute('x1',x);gv.setAttribute('x2',x);gv.setAttribute('y2',y);
+gh.setAttribute('y1',y);gh.setAttribute('y2',y);gh.setAttribute('x2',x);
+ro.textContent=fa(t)+'°C → '+fa(s)+' گرم';
+msg.className='chart-msg show sat';
+msg.innerHTML='📍 در دمای <b>'+fa(t)+' درجه</b>، حداکثر <b>'+fa(s)+' گرم</b> حل‌شونده در ۱۰۰ گرم حلال حل می‌شود (محلول سیرشده). حالا جای دیگری از نمودار را کلیک کنید!';
+}
+slider.addEventListener('input',e=>setTemp(+e.target.value));
+setTemp(40);
+svg.addEventListener('click',e=>{
+const r=svg.getBoundingClientRect();
+const sx=640/r.width,sy=420/r.height;
+const cx=(e.clientX-r.left)*sx,cy=(e.clientY-r.top)*sy;
+if(cx<70||cx>610||cy<60||cy>360)return;
+let t=Math.round((cx-100)/15+10);t=Math.max(10,Math.min(50,t));
+let sVal=Math.round((360-cy)/5+20);sVal=Math.max(15,Math.min(70,sVal));
+const sol=t+10;
+slider.value=t;setTemp(t);
+if(Math.abs(sVal-sol)<=3){msg.className='chart-msg show sat';msg.innerHTML='🟡 درست روی منحنی! این محلول <b>سیرشده</b> است؛ یعنی حلال در این دما دیگر نمی‌تواند حل‌شونده بیشتری حل کند.';}
+else if(sVal<sol){msg.className='chart-msg show unsat';msg.innerHTML='🟢 زیر منحنی! این محلول <b>سیرنشده</b> است؛ می‌تواند تا '+fa(sol)+' گرم، حل‌شونده بیشتری حل کند (نمونه شما: '+fa(sVal)+' گرم).';}
+else{msg.className='chart-msg show sup';msg.innerHTML='🔴 بالای منحنی! این محلول <b>فراسیرشده</b> است ('+fa(sVal)+' گرم در حالی که انحلال‌پذیری '+fa(sol)+' گرم است)؛ ناپایدار است و با کوچک‌ترین ضربه، اضافه آن رسوب می‌کند!';}
+});
+})();
+
+/* ================== نواحی A/B/C ================== */
+(function(){
+const info=document.getElementById('regionInfo');if(!info)return;
+const data={
+ptA:{t:'نقطه A — فراسیرشده (Supersaturated)',b:'این نقطه بالای منحنی است: مقدار حل‌شونده <b>بیشتر از انحلال‌پذیری</b> در این دما حل شده است! چنین محلولی <b>ناپایدار</b> است و با کوچک‌ترین ضربه، تکان یا افزودن یک بلور، مقدار اضافی بلافاصله رسوب می‌کند.',c:'rgba(248,113,113,.12)',br:'rgba(248,113,113,.45)'},
+ptB:{t:'نقطه B — سیرشده (Saturated)',b:'این نقطه دقیقاً <b>روی منحنی</b> است: مقدار حل‌شونده <b>برابر انحلال‌پذیری</b> است. محلول در تعادل کامل است و دیگر نمی‌تواند حل‌شونده بیشتری در این دما حل کند.',c:'rgba(251,191,36,.12)',br:'rgba(251,191,36,.45)'},
+ptC:{t:'نقطه C — سیرنشده (Unsaturated)',b:'این نقطه <b>زیر منحنی</b> است: مقدار حل‌شونده <b>کمتر از انحلال‌پذیری</b> است. این محلول <b>ظرفیت دارد</b> و می‌تواند حل‌شونده بیشتری حل کند.',c:'rgba(52,211,153,.12)',br:'rgba(52,211,153,.45)'}
+};
+document.querySelectorAll('.region-pt').forEach(p=>{
+p.addEventListener('click',()=>{
+document.querySelectorAll('.region-pt').forEach(x=>x.classList.remove('on'));
+p.classList.add('on');const d=data[p.id];
+info.innerHTML='<b style="color:#fff">'+d.t+'</b><br>'+d.b;
+info.style.background=d.c;info.style.borderColor=d.br;
+});});
+})();
+
+/* ================== گام‌های مسائل ================== */
+document.querySelectorAll('[data-steps]').forEach(btn=>{
+btn.addEventListener('click',()=>{
+const pid=btn.dataset.steps;
+const steps=document.querySelectorAll('.steps[data-p="'+pid+'"] .step');
+let shown=document.querySelectorAll('.steps[data-p="'+pid+'"] .step.show').length;
+if(shown<steps.length){
+steps[shown].classList.add('show');
+btn.textContent='👉 گام بعدی ('+(shown+1)+' از '+steps.length+')';
+if(shown+1===steps.length){btn.style.display='none';document.querySelector('.final-answer[data-answer="'+pid+'"]').classList.add('show');}
+}
+});});
+</script>
+<script>
+/* ================== شبیه‌ساز گاز ================== */
+(function(){
+const g=document.getElementById('gasDots');if(!g)return;
+const svgNS='http://www.w3.org/2000/svg';
+const total=14,dots=[];
+const inX=[95,115,135,155,175,195,210,105,125,145,165,185,205,150];
+const inY=[165,175,160,185,170,178,162,200,210,195,205,215,198,225];
+const outX=[100,140,180,220,90,240,120,200,70,255,160,105,230,190];
+const outY=[110,95,105,115,125,100,85,88,118,108,60,55,68,75];
+for(let i=0;i<total;i++){
+const c=document.createElementNS(svgNS,'circle');
+c.setAttribute('r','6');c.setAttribute('stroke','rgba(255,255,255,.6)');c.setAttribute('stroke-width','1');
+c.style.transition='cx .9s cubic-bezier(.2,.7,.3,1),cy .9s cubic-bezier(.2,.7,.3,1),fill .9s';
+g.appendChild(c);dots.push(c);}
+const tS=document.getElementById('gasTemp'),pS=document.getElementById('gasPres');
+const tV=document.getElementById('tempVal'),pV=document.getElementById('presVal'),gC=document.getElementById('gasCount');
+const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+function upd(){
+const t=+tS.value,p=+pS.value;
+tV.textContent=fa(t)+'°C';pV.textContent=fa(p)+' اتمسفر';
+let dissolved=Math.round(total*(p/3)*(1-t/140));
+dissolved=Math.max(0,Math.min(total,dissolved));
+dots.forEach((c,i)=>{
+if(i<dissolved){c.setAttribute('cx',inX[i]);c.setAttribute('cy',inY[i]);c.setAttribute('fill','rgba(96,165,250,.9)');}
+else{c.setAttribute('cx',outX[i]);c.setAttribute('cy',outY[i]);c.setAttribute('fill','rgba(251,113,133,.85)');}
+});
+gC.innerHTML='مولکول‌های حل‌شده: <b>'+fa(dissolved)+'</b> از '+fa(total)+' &nbsp;|&nbsp; خارج‌شده: <b>'+fa(total-dissolved)+'</b>';
+}
+tS.addEventListener('input',upd);pS.addEventListener('input',upd);upd();
+})();
+
+/* ================== آکاردئون تکنیک‌ها ================== */
+document.querySelectorAll('.tech .tech-head').forEach(h=>{
+h.addEventListener('click',()=>h.closest('.tech').classList.toggle('open'));
+});
+
+/* ================== قیف جداکننده تعاملی ================== */
+(function(){
+const btn=document.getElementById('funnelBtn');if(!btn)return;
+const drop=document.getElementById('funnelDrop');let open=false;
+btn.addEventListener('click',()=>{
+open=!open;
+btn.textContent=open?'🔒 بستن شیر قیف':'🚰 باز کردن شیر قیف';
+drop.style.animationPlayState=open?'running':'paused';
+drop.style.opacity=open?'1':'0';
+});})();
+
+/* ================== صابون و نمک تعاملی ================== */
+(function(){
+const btn=document.getElementById('soapBtn');if(!btn)return;
+const layer=document.getElementById('soapPrecip');let on=false;
+const svgNS='http://www.w3.org/2000/svg';
+btn.addEventListener('click',()=>{
+if(on){layer.innerHTML='';btn.textContent='🧂 افزودن نمک به ظرف‌ها';on=false;return;}
+for(let i=0;i<9;i++){
+const c=document.createElementNS(svgNS,'circle');
+c.setAttribute('cx',68+i*8);c.setAttribute('cy',103);c.setAttribute('r','3.2');
+c.setAttribute('fill','#fff');c.setAttribute('opacity','.92');
+c.classList.add('precip-dot');c.style.animationDelay=(i*.14)+'s';c.style.animationDuration='2.2s';
+layer.appendChild(c);}
+btn.textContent='↺ پاک کردن رسوب';on=true;
+});})();
+
+/* ================== موتور امتحان ۵۰ سؤالی ================== */
+const QUIZ=[
+{topic:'مخلوط‌ها',q:'مخلوطی که ذرات جامد آن به‌مرور زمان ته‌نشین می‌شوند، چه نام دارد؟',o:['محلول','کلوئید','سوسپانسیون','ماده خالص'],c:2,e:'سوسپانسیون مخلوطی ناهمگن است که ذرات جامد آن به‌مرور ته‌نشین می‌شوند؛ مثل آب و خاک.'},
+{topic:'مخلوط‌ها',q:'تفاوت اصلی کلوئید با سوسپانسیون چیست؟',o:['ذرات کلوئید شناور می‌مانند و ته‌نشین نمی‌شوند','ذرات کلوئید بزرگ‌تر از ذرات سوسپانسیون هستند','کلوئید همیشه جامد در جامد است','کلوئید محلولی سیرشده است'],c:0,e:'طبق تعریف جزوه: کلوئید سوسپانسیونی است که ذرات آن به‌صورت شناور باقی مانده‌اند و ته‌نشین نمی‌شوند (مثل شیر).'},
+{topic:'مخلوط‌ها',q:'کدام‌یک نمونه‌ای از سوسپانسیون است؟',o:['آب و خاک','آب و نمک','شیر','آب و الکل'],c:0,e:'آب و خاک سوسپانسیون است چون ذرات خاک پس از مدتی ته‌نشین می‌شوند. شیر کلوئید و آب‌نمک/آب‌الکل محلول است.'},
+{topic:'مخلوط‌ها',q:'برای تبدیل یک ترکیب به عنصرهای سازنده‌اش از کدام تغییر استفاده می‌شود؟',o:['تغییر فیزیکی','تغییر شیمیایی','انجماد','صاف کردن'],c:1,e:'طبق جزوه، تبدیل ترکیب به عنصر با «تغییر شیمیایی» انجام می‌شود؛ مثل تجزیه آب به هیدروژن و اکسیژن.'},
+{topic:'مخلوط‌ها',q:'جدا کردن آب و روغن از یکدیگر نمونه‌ای از کدام تبدیل است؟',o:['تغییر شیمیایی ترکیب','تغییر فیزیکی ماده ناخالص به خالص','تجزیه الکتریکی','واکنش گرمایی'],c:1,e:'مثال جزوه برای تبدیل فیزیکی «ماده ناخالص به ماده خالص» جدا کردن آب و روغن است؛ ماهیت هیچ‌کدام تغییر نمی‌کند.'},
+{topic:'مخلوط‌ها',q:'ماده‌ای که فقط از یک نوع عنصر یا یک نوع ترکیب ساخته شده باشد، چه نامیده می‌شود؟',o:['مخلوط همگن','سوسپانسیون','ماده خالص','کلوئید'],c:2,e:'اگر ماده فقط از یک نوع عنصر یا ترکیب ساخته شده باشد (و استفاده شود)، ماده خالص است.'},
+{topic:'مخلوط‌ها',q:'شیر گاو نمونه‌ای از کدام دسته است؟',o:['محلول','سوسپانسیون','کلوئید','عنصر'],c:2,e:'شیر کلوئید است؛ ذرات چربی آن شناور مانده‌اند و ته‌نشین نمی‌شوند.'},
+{topic:'مخلوط‌ها',q:'تجزیه الکتریکی آب و تولید هیدروژن و اکسیژن چه نوع تغییری است؟',o:['تغییر فیزیکی','تغییر شیمیایی','انحلال','تبخیر'],c:1,e:'در این فرایند مولکول آب به عنصرهای سازنده خود (هیدروژن و دی‌اکسیژن) تجزیه می‌شود؛ پس تغییر شیمیایی است.'},
+{topic:'محلول‌ها',q:'در محلول آب و نمک خوراکی، کدام گزاره درست است؟',o:['آب حل‌شونده است','نمک حلال است','آب حلال و نمک حل‌شونده است','هر دو حلال هستند'],c:2,e:'مثال جزوه: آب حلال و نمک حل‌شونده است.'},
+{topic:'محلول‌ها',q:'درباره حلال در یک محلول کدام گزاره درست است؟',o:['می‌تواند چند جزء باشد','فقط یک جزء است','همیشه جامد است','همیشه الکل است'],c:1,e:'نکته کلیدی جزوه: حلال فقط یک جزء است ولی حل‌شونده می‌تواند بیش از یک جزء باشد.'},
+{topic:'محلول‌ها',q:'طبق جزوه، کدام گروه «مهم‌ترین حلال‌ها» را نشان می‌دهد؟',o:['آب، استون، اتانول، تینر','آب، روغن، بنزین','اتانول، خاک، نمک','استون، شیر، عسل'],c:0,e:'مهم‌ترین حلال‌ها طبق جزوه: آب، استون، اتانول و تینر هستند.'},
+{topic:'محلول‌ها',q:'کدام مورد از ویژگی‌های آب به‌عنوان حلال برتر نیست؟',o:['ارزان و فراوان بودن','انجام اغلب واکنش‌های صنعتی و دارویی در آن','حل شدن اغلب ترکیب‌های یونی و مولکولی در آن','رنگی شدن محلول‌ها به رنگ آبی'],c:3,e:'آب بی‌رنگ است! سه ویژگی دیگر طبق جزوه از مزایای آب به‌عنوان حلال است.'},
+{topic:'محلول‌ها',q:'طبق جزوه، در محلول آب و الکل، الکل نقش چه چیزی را دارد؟',o:['حلال','حل‌شونده','رسوب','کلوئید'],c:1,e:'در مثال جزوه (حل‌شونده‌ای که به آب اضافه شده)، الکل حل‌شونده و آب حلال است.'},
+{topic:'محلول‌ها',q:'محلول سیرشده محلی است که ...',o:['در دمای معین دیگر نمی‌تواند حل‌شونده بیشتری حل کند','هیچ حل‌شونده‌ای در آن حل نشده','همیشه داغ است','بیش از انحلال‌پذیری حل‌شونده دارد'],c:0,e:'سیرشده یعنی در آن دما حداکثر مقدار حل‌شونده ممکن حل شده است. گزینه آخر مربوط به فراسیرشده است.'},
+{topic:'انحلال‌پذیری',q:'انحلال‌پذیری مواد بر اساس چند گرم حلال تعریف می‌شود؟',o:['۵۰ گرم','۱۰۰ گرم','۱۵۰ گرم','۱۰۰۰ گرم'],c:1,e:'قاعده طلایی جزوه: همیشه حلال را ۱۰۰ گرم در نظر می‌گیریم.'},
+{topic:'انحلال‌پذیری',q:'اگر بگویند انحلال‌پذیری ماده‌ای در ۲۵ درجه برابر ۴۰ است، منظور این است که:',o:['۴۰ گرم ماده در ۱۰۰ گرم حلال در این دما حل می‌شود','۱۰۰ گرم ماده در ۴۰ گرم حلال حل می‌شود','۴۰ گرم محلول در کل ساخته می‌شود','۴۰ درجه دمای ذوب است'],c:0,e:'یعنی حداکثر ۴۰ گرم حل‌شونده در ۱۰۰ گرم حلال در ۲۵ درجه حل می‌شود و محلول سیرشده می‌سازد.'},
+{topic:'انحلال‌پذیری',q:'در نمودار انحلال‌پذیری، محور افقی و عمودی به‌ترتیب چه کمیت‌هایی هستند؟',o:['انحلال‌پذیری و دما','دما و انحلال‌پذیری','جرم محلول و زمان','زمان و دما'],c:1,e:'محور افقی (x) دما و محور عمودی (y) انحلال‌پذیری (گرم حل‌شونده در ۱۰۰ گرم حلال) است.'},
+{topic:'دما و سیرش',q:'اگر انحلال‌پذیری ماده‌ای با افزایش دما زیاد شود، آن ماده چه نامیده می‌شود؟',o:['گرم‌حلال','گرم‌گریز','سیرشده','فراسیرشده'],c:0,e:'گرم‌حلال یعنی انحلال‌پذیری با دما رابطه مستقیم دارد و شیب نمودار آن صعودی است.'},
+{topic:'دما و سیرش',q:'انحلال‌پذیری گاز اکسیژن در آب با افزایش دما چه می‌شود؟',o:['بیشتر می‌شود','کمتر می‌شود','تغییر نمی‌کند','ابتدا زیاد و بعد کم می‌شود'],c:1,e:'مثال گرم‌گریز جزوه: انحلال‌پذیری گازها (مثل اکسیژن) در آب با افزایش دما کاهش می‌یابد (رابطه معکوس).'},
+{topic:'دما و سیرش',q:'هرچه شیب نمودار انحلال‌پذیری تندتر باشد، چه نتیجه‌ای می‌گیریم؟',o:['وابستگی انحلال‌پذیری به دما بیشتر است','انحلال‌پذیری مطلق کمتر است','نقطه جوش بالاتر است','ماده حتماً گرم‌گریز است'],c:0,e:'طبق قاعده جزوه: تندتر بودن شیب نمودار یعنی وابستگی دمایی بیشتر (مثل نقطه A نسبت به B).'},
+{topic:'دما و سیرش',q:'نقطه‌ای که دقیقاً روی منحنی انحلال‌پذیری قرار دارد، نشان‌دهنده کدام محلول است؟',o:['سیرنشده','سیرشده','فراسیرشده','رقیق'],c:1,e:'روی منحنی = مقدار حل‌شونده دقیقاً برابر انحلال‌پذیری = محلول سیرشده.'},
+{topic:'دما و سیرش',q:'نقطه‌ای زیر منحنی انحلال‌پذیری مربوط به چه محلولی است؟',o:['فراسیرشده','سیرنشده','سیرشده','رسوب‌کرده'],c:1,e:'زیر منحنی یعنی حل‌شونده کمتر از انحلال‌پذیری حل شده؛ محلول سیرنشده است و می‌تواند بیشتر حل کند.'},
+{topic:'دما و سیرش',q:'نقطه‌ای بالای منحنی انحلال‌پذیری مربوط به کدام محلول است؟',o:['سیرنشده','سیرشده','فراسیرشده','ماده خالص'],c:2,e:'بالای منحنی یعنی بیش از انحلال‌پذیری حل شده است؛ محلول فراسیرشده و ناپایدار.'},
+{topic:'دما و سیرش',q:'کدام محلول می‌تواند مقدار بیشتری حل‌شونده در خود حل کند؟',o:['سیرشده','فراسیرشده','سیرنشده','هیچ‌کدام'],c:2,e:'سیرنشده (زیر منحنی) هنوز ظرفیت حل کردن دارد؛ سیرشده پر است و فراسیرشده پایدار نیست.'},
+{topic:'مسائل محاسباتی',q:'انحلال‌پذیری ماده‌ای در ۷۵ درجه برابر ۵۰ گرم است. در ۷۵ گرم محلول سیرشده آن در همین دما، چند گرم حل‌شونده وجود دارد؟',o:['۲۵ گرم','۵۰ گرم','۳۷/۵ گرم','۱۲/۵ گرم'],c:0,e:'محلول سیرشده: ۱۰۰g حلال + ۵۰g حل‌شونده = ۱۵۰g محلول. نسبت ۷۵÷۱۵۰ = ۰/۵ پس حل‌شونده = ۵۰×۰/۵ = ۲۵ گرم.'}
+];
+</script>
+<script>
+QUIZ.push(
+{topic:'مسائل محاسباتی',q:'در همان محلول سیرشده (۷۵ گرم محلول با انحلال‌پذیری ۵۰)، چند گرم حلال وجود دارد؟',o:['۵۰ گرم','۲۵ گرم','۷۵ گرم','۱۰۰ گرم'],c:0,e:'۷۵g محلول = ۲۵g حل‌شونده + ۵۰g حلال. حلال = ۷۵ − ۲۵ = ۵۰ گرم.'},
+{topic:'مسائل محاسباتی',q:'در ۱۲۰ گرم محلول سیرشده نمک A، ۴۰ گرم نمک وجود دارد. انحلال‌پذیری این نمک در این دما چند گرم است؟',o:['۴۰ گرم','۵۰ گرم','۶۰ گرم','۳۳/۳ گرم'],c:1,e:'حلال = ۱۲۰−۴۰ = ۸۰g. در ۸۰g حلال ۴۰g حل شده؛ پس در ۱۰۰g حلال ← ۴۰×(۱۰۰÷۸۰) = ۵۰ گرم.'},
+{topic:'مسائل محاسباتی',q:'در همان محلول، جرم حلال چند گرم است؟',o:['۴۰ گرم','۶۰ گرم','۸۰ گرم','۱۲۰ گرم'],c:2,e:'حلال = جرم محلول − جرم حل‌شونده = ۱۲۰ − ۴۰ = ۸۰ گرم.'},
+{topic:'مسائل محاسباتی',q:'انحلال‌پذیری ماده‌ای ۳۰ است. در ۱۳۰ گرم محلول سیرشده، چند گرم حل‌شونده وجود دارد؟',o:['۱۵ گرم','۳۰ گرم','۶۰ گرم','۱۰۰ گرم'],c:1,e:'محلول سیرشده = ۱۰۰g حلال + ۳۰g حل‌شونده = ۱۳۰g؛ پس در ۱۳۰g محلول دقیقاً ۳۰g حل‌شونده وجود دارد.'},
+{topic:'مسائل محاسباتی',q:'انحلال‌پذیری نمکی در ۲۰°C برابر ۳۵ و در ۶۰°C برابر ۱۵۵ گرم است. اگر ۲۵۵ گرم محلول سیرشده در ۶۰ درجه را تا ۲۰ درجه سرد کنیم، چند گرم رسوب می‌کند؟',o:['۳۵ گرم','۱۲۰ گرم','۱۵۵ گرم','۲۵۵ گرم'],c:1,e:'۲۵۵g محلول = ۱۰۰g حلال + ۱۵۵g حل‌شونده. پس از سرد شدن فقط ۳۵g در ۱۰۰g حلال می‌ماند. رسوب = ۱۵۵−۳۵ = ۱۲۰ گرم.'},
+{topic:'مسائل محاسباتی',q:'در مسئله قبل (۲۵۵ گرم محلول سیرشده در ۶۰ درجه)، جرم حلال چند گرم است؟',o:['۱۰۰ گرم','۱۵۵ گرم','۱۲۰ گرم','۲۵۵ گرم'],c:0,e:'چون انحلال‌پذیری در ۶۰ درجه ۱۵۵ است، ۲۵۵g محلول سیرشده = ۱۰۰g حلال + ۱۵۵g حل‌شونده.'},
+{topic:'مسائل محاسباتی',q:'انحلال‌پذیری نمکی در ۸۰ درجه برابر ۵۰ گرم است. در ۳۰۰ گرم محلول سیرشده آن در همین دما، چند گرم حلال وجود دارد؟',o:['۱۰۰ گرم','۱۵۰ گرم','۲۰۰ گرم','۳۰۰ گرم'],c:2,e:'هر ۱۵۰g محلول = ۱۰۰g حلال. پس ۳۰۰g محلول = ۲۰۰g حلال + ۱۰۰g حل‌شونده.'},
+{topic:'مسائل محاسباتی',q:'اگر از همان محلول ۳۰۰ گرمی، ۵۰ گرم رسوب بگیرد، انحلال‌پذیری در دمای جدید چند گرم است؟',o:['۲۰ گرم','۲۵ گرم','۳۰ گرم','۵۰ گرم'],c:1,e:'حل‌شونده باقی‌مانده = ۱۰۰−۵۰ = ۵۰g در ۲۰۰g حلال. انحلال‌پذیری = ۵۰×(۱۰۰÷۲۰۰) = ۲۵ گرم.'},
+{topic:'مسائل محاسباتی',q:'انحلال‌پذیری نمکی در ۴۰ درجه برابر ۶۰ گرم است. حداکثر چند گرم از این نمک در ۲۰۰ گرم آب در همین دما حل می‌شود؟',o:['۶۰ گرم','۱۲۰ گرم','۶۰۰ گرم','۳۰ گرم'],c:1,e:'در ۱۰۰g آب ← ۶۰g. پس در ۲۰۰g آب ← ۶۰×۲ = ۱۲۰ گرم.'},
+{topic:'مسائل محاسباتی',q:'اگر انحلال‌پذیری ماده‌ای ۶۰ باشد، در ۱۶۰ گرم محلول سیرشده، جرم حلال چند گرم است؟',o:['۶۰ گرم','۱۰۰ گرم','۱۶۰ گرم','۹۶ گرم'],c:1,e:'محلول سیرشده = ۱۰۰g حلال + ۶۰g حل‌شونده = ۱۶۰g؛ پس حلال = ۱۰۰ گرم.'},
+{topic:'مسائل محاسباتی',q:'در محلول سیرشده‌ای با انحلال‌پذیری ۲۰، نسبت جرم حل‌شونده به کل محلول چقدر است؟',o:['یک ششم','یک پنجم','یک بیستم','یک صدم'],c:0,e:'حل‌شونده ۲۰g و محلول ۱۲۰g ← نسبت = ۲۰÷۱۲۰ = ۱/۶ (یک ششم).'},
+{topic:'گازها',q:'افزایش دما بر انحلال‌پذیری گازها در آب چه اثری دارد؟',o:['افزایش می‌دهد','کاهش می‌دهد','بی‌اثر است','ابتدا زیاد و بعد کم می‌کند'],c:1,e:'گازها با دما رابطه معکوس دارند: گرم شدن آب، مولکول‌های گاز را از آب خارج می‌کند.'},
+{topic:'گازها',q:'افزایش فشار بر انحلال‌پذیری گازها چه اثری دارد؟',o:['کاهش می‌دهد','افزایش می‌دهد','بی‌اثر است','بستگی به رنگ حلال دارد'],c:1,e:'گازها با فشار رابطه مستقیم دارند: فشار بیشتر = انحلال‌پذیری بیشتر (مثل گاز در بطری نوشابه).'},
+{topic:'گازها',q:'چرا از نوشیدنی گازدار گرم، گاز آن سریع‌تر خارج می‌شود؟',o:['چون انحلال‌پذیری گاز با افزایش دما کاهش می‌یابد','چون فشار داخل بطری افزایش می‌یابد','چون گاز در آب جامد می‌شود','چون آب تبخیر می‌شود'],c:0,e:'با گرم شدن، انحلال‌پذیری CO₂ در آب کم می‌شود (رابطه معکوس با دما) و گاز به‌صورت حباب خارج می‌شود.'},
+{topic:'گازها',q:'حل شدن کربن دی‌اکسید در آب علاوه بر انحلال فیزیکی، با تشکیل چه ماده‌ای همراه است؟',o:['اسید کربنیک','سدیم کلرید','اکسیژن مایع','الکل'],c:0,e:'طبق جزوه: CO₂ + آب ← اسید کربنیک (H₂CO₃)؛ به همین دلیل انحلال شیمیایی هم دارد و بیشتر حل می‌شود.'},
+{topic:'مقایسه',q:'ترتیب صحیح اندازه ذرات از کوچک به بزرگ کدام است؟',o:['محلول < کلوئید < سوسپانسیون','سوسپانسیون < کلوئید < محلول','کلوئید < محلول < سوسپانسیون','محلول < سوسپانسیون < کلوئید'],c:0,e:'ذرات محلول کوچک‌تر از ۱nm، کلوئید ۱ تا ۱۰۰۰nm و سوسپانسیون بزرگ‌تر از ۱۰۰۰nm هستند.'},
+{topic:'مقایسه',q:'کدام مخلوط نور را پراکنده می‌کند و مسیر پرتو نور در آن دیده می‌شود (اثر تایندال)؟',o:['محلول','کلوئید','سوسپانسیون','ماده خالص'],c:1,e:'اثر تایندال ویژگی کلوئید است؛ ذرات شناور آن نور را پراکنده می‌کنند و مسیر پرتو آشکار می‌شود.'},
+{topic:'مقایسه',q:'کدام مخلوط ناپایدارترین حالت را دارد و به‌مرور زمان ته‌نشین می‌شود؟',o:['محلول','کلوئید','سوسپانسیون','مخلوط همگن'],c:2,e:'سوسپانسیون به‌دلیل بزرگ بودن ذرات ناپایدار است و ذراتش ته‌نشین می‌شوند؛ کلوئید شناور می‌ماند و محلول پایدار است.'},
+{topic:'مقایسه',q:'ذرات کلوئید هنگام صاف کردن با کاغذ صافی معمولی چه می‌شوند؟',o:['روی صافی می‌مانند','از صافی عبور می‌کنند','تبخیر می‌شوند','به رنگ قرمز درمی‌آیند'],c:1,e:'ذرات کلوئید از ذرات سوسپانسیون کوچک‌ترند و از منافذ کاغذ صافی معمولی عبور می‌کنند (مثل صاف کردن آب‌میوه).'},
+{topic:'جداسازی',q:'برای جدا کردن نمک از آب نمک از کدام روش استفاده می‌شود؟',o:['صاف کردن','تبخیر','سرریز کردن','سانتریفیوژ'],c:1,e:'نمک در آب حل شده است؛ با تبخیر، آب (حلال فرار) تبخیر می‌شود و نمک (حل‌شونده) در ظرف باقی می‌ماند.'},
+{topic:'جداسازی',q:'تقطیر بر اساس کدام ویژگی اجزای مخلوط انجام می‌شود؟',o:['اختلاف رنگ','اختلاف نقطه جوش','اختلاف وزن مولکولی رنگ‌ها','اختلاف حلالیت در آب'],c:1,e:'تقطیر وقتی کاربرد دارد که اختلاف نقطه جوش اجزا زیاد باشد؛ جزء کم‌جوش‌تر تبخیر و سپس میعان می‌شود.'},
+{topic:'جداسازی',q:'در مخلوط آب و الکل (نقطه جوش آب ۱۰۰ و الکل ۷۰ درجه)، هنگام حرارت‌دادن کدام جزء زودتر تبخیر و جمع‌آوری می‌شود؟',o:['آب','الکل','هر دو همزمان','هیچ‌کدام'],c:1,e:'مثال جزوه: در ۷۰ درجه الکل می‌جوشد (آب هنوز نمی‌جوشد)؛ بخار الکل در سردکننده میعان و جمع‌آوری می‌شود.'},
+{topic:'جداسازی',q:'برای جدا کردن روغن و آب از هم، بهترین ابزار چیست؟',o:['کاغذ صافی','قیف جداکننده','سانتریفیوژ','کروماتوگرافی'],c:1,e:'روغن و آب دو مایع نامحلول‌اند که دو لایه می‌سازند؛ با قیف جداکننده لایه زیرین (آب) خارج می‌شود.'},
+{topic:'جداسازی',q:'جداسازی اجزای خون معمولاً با کدام تکنیک انجام می‌شود؟',o:['کروماتوگرافی','سانتریفیوژ','تقطیر','تبخیر'],c:1,e:'سانتریفیوژ با نیروی گریز از مرکز، اجزای خون (گلبول‌ها و پلاسما) را از هم جدا می‌کند.'},
+{topic:'جداسازی',q:'در کروماتوگرافی کاغذی، کدام رنگدانه بالاتر می‌رود؟',o:['رنگدانه‌ای که چگالی بیشتری دارد','رنگدانه‌ای که حلالیت بیشتری دارد','رنگدانه‌ای که سنگین‌تر است','رنگدانه‌ای که رنگ تیره‌تری دارد'],c:1,e:'حلال از کاغذ بالا می‌رود و هر رنگدانه به اندازه حلالیتش بالا می‌رود؛ حلالیت بیشتر = بالا رفتن بیشتر.'}
+);
+/* ================== موتور اجرای امتحان ================== */
+(function(){
+const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const startScr=document.getElementById('qStart'),gameScr=document.getElementById('qGame'),endScr=document.getElementById('qEnd');
+const qCount=document.getElementById('qCount'),prog=document.getElementById('qProgBar'),timerEl=document.getElementById('qTimer');
+const topicEl=document.getElementById('qTopic'),textEl=document.getElementById('qText'),optsEl=document.getElementById('qOpts');
+const expEl=document.getElementById('qExplain'),nextBtn=document.getElementById('qNext');
+let idx=0,score=0,answers=[],t0=0,timerInt=null,locked=false;
+function fmtT(s){const m=Math.floor(s/60),ss=s%60;return fa(String(m).padStart(2,'0'))+':'+fa(String(ss).padStart(2,'0'));}
+document.getElementById('qBegin').onclick=()=>{
+idx=0;score=0;answers=[];t0=Date.now();
+clearInterval(timerInt);
+timerInt=setInterval(()=>{timerEl.textContent=fmtT(Math.floor((Date.now()-t0)/1000));},1000);
+startScr.classList.add('hidden');endScr.classList.add('hidden');gameScr.classList.remove('hidden');
+render();};
+document.getElementById('qRestart').onclick=document.getElementById('qBegin').onclick;
+function render(){
+locked=false;const Q=QUIZ[idx];
+qCount.textContent='سؤال '+fa(idx+1)+' از '+fa(QUIZ.length);
+prog.style.width=((idx)/QUIZ.length*100)+'%';
+topicEl.textContent='📚 '+Q.topic;
+textEl.textContent=Q.q;
+expEl.className='qexplain hidden';expEl.innerHTML='';
+nextBtn.classList.add('hidden');
+optsEl.innerHTML='';
+Q.o.forEach((op,i)=>{
+const b=document.createElement('button');b.className='qopt';
+b.innerHTML='<span class="letter">'+['الف','ب','ج','د'][i]+'</span><span>'+op+'</span>';
+b.onclick=()=>pick(i,b);optsEl.appendChild(b);});
+}
+function pick(i,btn){
+if(locked)return;locked=true;
+const Q=QUIZ[idx];const ok=i===Q.c;
+if(ok){score++;btn.classList.add('correct');}
+else{btn.classList.add('wrong');
+optsEl.children[Q.c].classList.add('correct');}
+optsEl.querySelectorAll('.qopt').forEach(o=>o.disabled=true);
+answers.push({q:Q.q,pick:i===Q.c?'':Q.o[i],correct:Q.o[Q.c],ok,e:Q.e});
+expEl.innerHTML=(ok?'✅ <b>درست!</b> ':'❌ <b>اشتباه بود!</b> ')+Q.e;
+expEl.className='qexplain';
+nextBtn.textContent=idx===QUIZ.length-1?'🏁 مشاهده نتیجه':'سؤال بعدی ◀';
+nextBtn.classList.remove('hidden');
+}
+nextBtn.onclick=()=>{
+prog.style.width=((idx+1)/QUIZ.length*100)+'%';
+if(idx===QUIZ.length-1){finish();return;}
+idx++;render();
+};
+function finish(){
+clearInterval(timerInt);
+const secs=Math.floor((Date.now()-t0)/1000);
+const pct=Math.round(score/QUIZ.length*100);
+gameScr.classList.add('hidden');endScr.classList.remove('hidden');
+document.getElementById('stCorrect').textContent=fa(score);
+document.getElementById('stWrong').textContent=fa(QUIZ.length-score);
+document.getElementById('stTime').textContent=fmtT(secs);
+document.getElementById('stScore').textContent=fa(score)+' از '+fa(QUIZ.length);
+const g=pct>=90?['🏆','فوق‌العاده بود! شما استاد مخلوط‌ها و جداسازی هستید!','34d399']:
+pct>=70?['🎉','عالی! فقط چند نکته کوچک را مرور کن','60a5fa']:
+pct>=50?['👍','خوب بود؛ فصل‌های مسائل و نمودار را دوباره ببین','fbbf24']:
+['📚','نیاز به مرور بیشتر داری؛ به بخش‌های آموزشی برگرد!','f87171'];
+document.getElementById('endEmoji').textContent=g[0];
+const gm=document.getElementById('gradeMsg');gm.textContent=g[1];gm.style.color=g[2];
+const circ=document.getElementById('scoreCircle'),sn=document.getElementById('scoreNum');
+sn.textContent=fa(pct);
+circ.style.setProperty('--p',0);
+requestAnimationFrame(()=>{circ.style.setProperty('--p',pct);});
+const rl=document.getElementById('reviewList');rl.innerHTML='';
+const wrongs=answers.filter(a=>!a.ok);
+if(wrongs.length===0){rl.innerHTML='<div style="text-align:center;padding:20px;color:#6ee7b7;font-weight:800">🌟 بی‌نقص! هیچ پاسخ غلطی نداشتی!</div>';}
+else{rl.innerHTML='<div style="padding:10px 4px;font-weight:900;color:#fca5a5">🔍 مرور پاسخ‌های نادرست ('+fa(wrongs.length)+' مورد):</div>';
+wrongs.forEach(a=>{
+const d=document.createElement('div');d.className='review-item';
+d.innerHTML='<div class="rv-q">'+a.q+'</div><div class="rv-w">❌ پاسخ شما: '+a.pick+'</div><div class="rv-c">✅ پاسخ درست: '+a.correct+'</div><div class="rv-e">💡 '+a.e+'</div>';
+rl.appendChild(d);});}
+rl.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+})();
+</script>
+</body>
+</html>
